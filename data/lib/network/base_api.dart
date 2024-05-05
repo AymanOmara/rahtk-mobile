@@ -9,17 +9,20 @@ import 'package:domain/common/network/exceptions/json_parsing_exception.dart';
 import 'package:domain/common/network/exceptions/network_exception.dart';
 import 'package:domain/common/network/exceptions/no_connection.dart';
 import 'package:domain/common/result.dart';
-import 'package:domain/locale_storage/i_user_preferences.dart';
+import 'package:domain/locale_storage/i_user_local.dart';
 
 import 'base_response.dart';
 import 'decode_able.dart';
 import 'i_base_api.dart';
 
 class BaseApi implements IAPIService {
-  final IUserPreferences userLocal;
+  final IUserLocal userLocal;
   final Dio _dio;
 
-  BaseApi(this.userLocal, this._dio);
+  const BaseApi(
+    this.userLocal,
+    this._dio,
+  );
 
   @override
   Future<Result<BaseResponse<T?>, NetworkException>> fetchData<T>(

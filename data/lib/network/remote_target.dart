@@ -5,7 +5,9 @@ abstract class IRemoteTarget {
   HttpMethod method = HttpMethod.get;
   Map<String, dynamic>? queryParameter;
 
-  IRemoteTarget({this.path});
+  IRemoteTarget({
+    this.path,
+  });
 }
 
 enum HttpMethod {

@@ -13,6 +13,7 @@ dependencies:
   get_storage: ^2.1.1
   dio: ^5.4.1
   jwt_decoder: ^2.0.1
+  get_it: ^7.7.0
   domain:
     path: ../domain
   common:

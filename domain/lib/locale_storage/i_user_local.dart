@@ -1,7 +1,5 @@
-abstract interface class IUserPreferences {
+abstract interface class IUserLocal {
   String get getLocale;
-
-  void setLocale(String language);
 
   String get getAccessToken;
 
@@ -11,7 +9,8 @@ abstract interface class IUserPreferences {
 
   void setRefreshToken(String refreshToken);
 
-  void setDarkMode(bool darkMode);
+  bool get firstRun;
+  void setFirstRun();
 
-  bool get getDarkMode;
+  bool get login;
 }

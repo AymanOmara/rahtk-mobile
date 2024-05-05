@@ -1,7 +1,18 @@
 library di;
 
-/// A Calculator.
-class Calculator {
-  /// Returns [value] plus 1.
-  int addOne(int value) => value + 1;
+import 'package:data/common/injector.dart';
+import 'package:di/repositories_injector.dart';
+import 'package:di/use_case_injector.dart';
+import 'package:get_it/get_it.dart';
+
+var diInjector = GetIt.I;
+
+class DI {
+  static Future<void> registerDependencies() async {
+    await initializeDataInjector(diInjector);
+    await setupRepositoryInjector(diInjector);
+    await setupUseCaseInjector(diInjector);
+  }
+
+  DI._();
 }
