@@ -8,12 +8,12 @@ class LoginRequest extends IRemoteTarget {
     required this.email,
     required this.password,
   }) {
-    body = {"Email": email, "Password": password};
+    body = {"email": email, "password": password};
   }
 
   @override
   HttpMethod get method => HttpMethod.post;
 
   @override
-  String? get path => "api/Auth/token";
+  String? get path => "api/User/login";
 }

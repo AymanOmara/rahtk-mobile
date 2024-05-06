@@ -1,10 +1,11 @@
 import 'decode_able.dart';
 
-class BaseResponse<T> implements DecodeAble<BaseResponse<T?>,Map?> {
+class BaseResponse<T> implements DecodeAble<BaseResponse<T?>, Map?> {
   DecodeAble? decodeAble;
   T? data;
   String? message;
   bool? success;
+  int? statusCode;
 
   BaseResponse({
     this.decodeAble,
@@ -13,9 +14,12 @@ class BaseResponse<T> implements DecodeAble<BaseResponse<T?>,Map?> {
   @override
   BaseResponse<T?> fromJson(json) {
     var response = BaseResponse<T?>()
-      ..data = json?.containsKey("data")  == true ?  decodeAble?.fromJson(json?["data"] ?? {}) : null
+      ..data = json?.containsKey("data") == true
+          ? decodeAble?.fromJson(json?["data"] ?? {})
+          : null
       ..message = json?["message"]
-      ..success = json?["status"];
+      ..statusCode = json?["statusCode"]
+      ..success = json?["success"];
 
     return response;
   }

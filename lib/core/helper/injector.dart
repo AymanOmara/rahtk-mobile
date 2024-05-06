@@ -11,7 +11,7 @@ Future<void> initializeDependencies() async {
   getIt.registerFactory(() => AppCubit(diInjector()));
 
   /// ********* Auth **********
-  getIt.registerFactory(() => LoginCubit());
+  getIt.registerFactory(() => LoginCubit(diInjector()));
 
   /// ********* Home **********
   getIt.registerFactory(() => HomeCubit());

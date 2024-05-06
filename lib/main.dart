@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:di/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +18,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DI.registerDependencies();
   await initializeDependencies();
+  HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
 
@@ -64,5 +67,12 @@ class MyApp extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+class MyHttpOverrides extends HttpOverrides{
+  @override
+  HttpClient createHttpClient(SecurityContext? context){
+    return super.createHttpClient(context)
+      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
   }
 }

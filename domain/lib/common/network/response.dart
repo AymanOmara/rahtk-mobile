@@ -1,11 +1,13 @@
 class Response<T> {
   T? data;
-  String message;
-  bool success;
+  final String message;
+  final bool success;
+  final int statusCode;
 
   Response({
-    required this.data,
-    required this.message,
-    required this.success,
+    this.data,
+    this.message = "",
+    this.statusCode = 400,
+    this.success = false,
   });
 }
