@@ -10,19 +10,10 @@ class OnBoardingCubit extends Cubit<OnBoardingState> {
     this._changeFirstLaunchUseCase,
   ) : super(OnBoardingInitial());
   final ChangeFirstLaunchUseCase _changeFirstLaunchUseCase;
-  List<OnBoardingSliderDisplay> onBoardingSliders = [
-    const OnBoardingSliderDisplay(
-      title: "Empowering Artisans, Farmers & Micro Business",
-      imagePath: "",
-    ),
-    const OnBoardingSliderDisplay(
-      title: "Connecting NGOs, Social Enterprises with Communities",
-      imagePath: "",
-    ),
-    const OnBoardingSliderDisplay(
-      title: "Donate, Invest & Support infrastructure projects",
-      imagePath: "",
-    ),
+  List<String> onBoardingSliders = [
+    "Empowering Artisans, Farmers & Micro Business",
+    "Connecting NGOs, Social Enterprises with Communities",
+    "Donate, Invest & Support infrastructure projects",
   ];
   int currentIndex = 0;
 
@@ -30,6 +21,7 @@ class OnBoardingCubit extends Cubit<OnBoardingState> {
     currentIndex = index;
     emit(OnBoardingUpdateCurrentSliderIndex());
   }
+
   void updateFirstLaunch() {
     _changeFirstLaunchUseCase();
   }

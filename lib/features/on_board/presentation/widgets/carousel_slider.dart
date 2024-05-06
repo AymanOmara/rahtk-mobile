@@ -40,7 +40,7 @@ class OnBoardingCarouselSlider extends StatelessWidget {
                   height: 20.h,
                 ),
                 Text(
-                  entry.value.title,
+                  entry.value,
                   textAlign: TextAlign.center,
                   style: const TextStyle(
                     color: RahtkColors.tealColor,
