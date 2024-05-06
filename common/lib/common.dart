@@ -1,6 +1,5 @@
 library common;
 
 class Common {
-  static const baseUrl = "http://redzone.runasp.net/";
-// static const baseUrl = "http://redzone.runasp.net/api";
+  static const baseUrl = "https://localhost:7134/";
 }

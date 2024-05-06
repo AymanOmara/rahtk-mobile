@@ -6,6 +6,7 @@ import 'package:rahtk_mobile/features/auth/login/business_logic/login_cubit.dart
 import 'package:rahtk_mobile/features/auth/login/presentation/page/login_page.dart';
 import 'package:rahtk_mobile/features/home/business_logic/home_cubit.dart';
 import 'package:rahtk_mobile/features/home/presentation/page/home_page.dart';
+import 'package:rahtk_mobile/features/on_board/business_logic/on_boarding_cubit.dart';
 
 import 'features/on_board/presentation/page/on_board_page.dart';
 
@@ -28,7 +29,10 @@ class AppRouter {
         );
       case AppRoutes.onBoarding:
         return MaterialPageRoute(
-          builder: (_) => const OnBoardPage(),
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<OnBoardingCubit>(),
+            child:  OnBoardPage(),
+          ),
         );
     }
     return null;
