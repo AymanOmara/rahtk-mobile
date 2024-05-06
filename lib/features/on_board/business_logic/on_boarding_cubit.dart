@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:domain/features/on_boarding/use_case/change_first_launch_use_case.dart';
 import 'package:meta/meta.dart';
-import 'package:rahtk_mobile/features/on_board/display/on_board_slider_disply.dart';
 
 part 'on_boarding_state.dart';
 
