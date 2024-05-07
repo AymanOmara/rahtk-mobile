@@ -7,7 +7,7 @@ import 'decode_able.dart';
 
 abstract interface class IAPIService {
   Future<Result<BaseResponse<T?>, NetworkException>> fetchData<T>(
-    IRemoteTarget targetType,
+    IRemoteTarget targetType, {
     DecodeAble? data,
-  );
+  });
 }

@@ -78,14 +78,8 @@ class LoginPage extends StatelessWidget {
                                 onChanged: (email) {
                                   cubit.email = email;
                                 },
-                                validator: (email) {
-                                  if (email.isNullOrEmpty()) {
-                                    return "required_field".tr;
-                                  } else if (!email.isValidEmail()) {
-                                    return "invalid_email".tr;
-                                  }
-                                  return null;
-                                },
+                                validator: (email) =>
+                                    Validator.validateEmail(email),
                               ),
                               const SizedBox(
                                 height: 20,
@@ -98,14 +92,8 @@ class LoginPage extends StatelessWidget {
                                 decoration: InputDecoration(
                                   labelText: "password".tr,
                                 ),
-                                validator: (password) {
-                                  if (password.isNullOrEmpty()) {
-                                    return "required_field".tr;
-                                  } else if ((password?.length ?? 0) < 4) {
-                                    return "password_too_short".tr;
-                                  }
-                                  return null;
-                                },
+                                validator: (password) =>
+                                    Validator.validatePassword(password),
                               ),
                               const SizedBox(
                                 height: 20,
@@ -134,8 +122,9 @@ class LoginPage extends StatelessWidget {
                               ),
                               InkWell(
                                 onTap: () {
-                                  Navigator.of(context)
-                                      .pushNamed(AppRoutes.emailVerification);
+                                  Navigator.of(context).pushNamed(
+                                    AppRoutes.emailVerification,
+                                  );
                                 },
                                 child: Text(
                                   "forget_your_password".tr,
@@ -162,8 +151,9 @@ class LoginPage extends StatelessWidget {
                                     width: 2,
                                   ),
                                   InkWell(
-                                    onTap: (){
-                                      Navigator.pushNamed(context, AppRoutes.registration);
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                          context, AppRoutes.registration);
                                     },
                                     child: Text(
                                       "sign_up".tr,

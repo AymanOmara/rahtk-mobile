@@ -26,9 +26,9 @@ class BaseApi implements IAPIService {
 
   @override
   Future<Result<BaseResponse<T?>, NetworkException>> fetchData<T>(
-    IRemoteTarget targetType,
+    IRemoteTarget targetType, {
     DecodeAble? data,
-  ) async {
+  }) async {
     Logger.D(targetType.body);
     try {
       var response = await _dio.fetch(await _createRequestOptions(targetType));
@@ -38,7 +38,7 @@ class BaseApi implements IAPIService {
         var refreshTokenResult = await refreshToken();
         switch (refreshTokenResult) {
           case Success():
-            return await fetchData<T>(targetType, data);
+            return await fetchData<T>(targetType,data:  data);
           case Failure(exception: final exception):
             return Failure(exception);
         }
@@ -73,7 +73,7 @@ class BaseApi implements IAPIService {
       receiveDataWhenStatusError: true,
       validateStatus: (code) => true,
       data: targetType.body,
-      queryParameters: targetType.queryParameter,
+      queryParameters: targetType.queryParameters,
     );
   }
 

@@ -8,5 +8,6 @@ Map<String, String> ar = {
   "password_too_short": "كلمة المرور قصيرة جدا",
   "forget_your_password": "هل نسيت كلمة المرور؟",
   "don't_have_an_account": "لا يوجد لديك حساب؟",
-  "sign_up": "سجل الان"
+  "sign_up": "سجل الان",
+  "invalid_otp":"الكود غير صالح",
 };

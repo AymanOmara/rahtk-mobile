@@ -8,5 +8,6 @@ Map<String, String> en = {
   "password_too_short": "Password too short",
   "forget_your_password":"Forget your password?",
   "don't_have_an_account":"Don't have an account?",
-  "sign_up":"Sign up"
+  "sign_up":"Sign up",
+  "invalid_otp":"Invalid OTP"
 };

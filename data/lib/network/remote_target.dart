@@ -3,7 +3,7 @@ abstract class IRemoteTarget {
   dynamic body;
   Map<String, dynamic> headers = {};
   HttpMethod method = HttpMethod.get;
-  Map<String, dynamic>? queryParameter;
+  Map<String, dynamic>? queryParameters;
 
   IRemoteTarget({
     this.path,

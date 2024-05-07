@@ -17,7 +17,7 @@ import 'core/ui/theme/light_mode.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DI.registerDependencies();
-  await initializeDependencies();
+  await initializeDependencies(diInjector);
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
