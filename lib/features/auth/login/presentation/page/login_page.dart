@@ -100,6 +100,7 @@ class LoginPage extends StatelessWidget {
                               ),
                               RahtkLoadingButton(
                                 loadingState: cubit.loadingState,
+                                loaderColor: Colors.white,
                                 child: MaterialButton(
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(50),

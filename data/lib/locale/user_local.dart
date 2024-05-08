@@ -30,7 +30,6 @@ class UserLocal implements IUserLocal {
   bool get firstRun => _storage.read(LocaleKeys.firstLunch) ?? true;
 
   @override
-
   bool get login => getAccessToken.isNotEmpty;
 
   @override

@@ -31,11 +31,31 @@ class Validator {
     }
     return null;
   }
+
   static String? validatePassword(String? password) {
     if (password.isNullOrEmpty()) {
       return "required_field".tr;
     } else if ((password?.length ?? 0) < 4) {
       return "password_too_short".tr;
+    }
+    return null;
+  }
+
+  static String? validateConfirmPassword(
+      String? confirmPassword, String? password) {
+    if (confirmPassword.isNullOrEmpty()) {
+      return "required_field".tr;
+    } else if ((confirmPassword?.length ?? 0) < 4) {
+      return "password_too_short".tr;
+    } else if (confirmPassword != password) {
+      return "passwords_don't_match".tr;
+    }
+    return null;
+  }
+
+  static String? validateRequired(String? txt) {
+    if (txt.isNullOrEmpty()) {
+      return "required_field".tr;
     }
     return null;
   }

@@ -1,13 +1,18 @@
 import 'package:data/common/response_entity_mapper.dart';
+import 'package:data/features/auth/mappers/forget_password_mappers.dart';
+import 'package:data/features/auth/mappers/registration_mapper.dart';
 import 'package:data/features/auth/mappers/token_mapper.dart';
 import 'package:data/features/auth/model/token.dart';
 import 'package:data/features/auth/request/email_verification_request.dart';
+import 'package:data/features/auth/request/forget_password_request.dart';
 import 'package:data/features/auth/request/login_request.dart';
+import 'package:data/features/auth/request/registration_request.dart';
 import 'package:data/features/auth/request/verify_otp_request.dart';
 import 'package:data/network/i_base_api.dart';
 import 'package:domain/common/network/exceptions/network_exception.dart';
 import 'package:domain/common/network/response.dart';
 import 'package:domain/common/result.dart';
+import 'package:domain/features/auth/entities/forget_password_entity.dart';
 import 'package:domain/features/auth/entities/registration_entity.dart';
 import 'package:domain/features/auth/entities/token_entity.dart';
 import 'package:domain/features/auth/repositories/i_auth_repository.dart';
@@ -24,10 +29,16 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<Result<Response<TokenEntity>, NetworkException>> login(
-      String email, String password) async {
+    String email,
+    String password,
+  ) async {
     var result = await _service.fetchData<TokenModel>(
-        LoginRequest(email: email, password: password),
-        data: TokenModel());
+      LoginRequest(
+        email: email,
+        password: password,
+      ),
+      data: TokenModel(),
+    );
     switch (result) {
       case Success(data: final data):
         if (data.statusCode == 200) {
@@ -55,9 +66,19 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<Result<Response<bool>, NetworkException>> registration(
-      RegistrationEntity entity) {
-    // TODO: implement registration
-    throw UnimplementedError();
+    RegistrationEntity entity,
+  ) async {
+    var result = await _service.fetchData<bool>(
+      RegistrationRequest(
+        data: entity.toModel(),
+      ),
+    );
+    switch (result) {
+      case Success(data: final data):
+        return Success(data.toEntity(data.data ?? false));
+      case Failure(exception: final exception):
+        return Failure(exception);
+    }
   }
 
   @override
@@ -65,6 +86,20 @@ class AuthRepository implements IAuthRepository {
       String otp, String email) async {
     var result =
         await _service.fetchData(VerifyOtpRequest(email: email, otp: otp));
+    switch (result) {
+      case Success(data: final data):
+        return Success(data.toEntity(data.data ?? false));
+      case Failure(exception: final exception):
+        return Failure(exception);
+    }
+  }
+
+  @override
+  Future<Result<Response<bool>, NetworkException>> forgetPassword(
+    ForgetPasswordEntity entity,
+  ) async {
+    var result = await _service
+        .fetchData<bool>(ForgetPasswordRequest(data: entity.toModel()));
     switch (result) {
       case Success(data: final data):
         return Success(data.toEntity(data.data ?? false));

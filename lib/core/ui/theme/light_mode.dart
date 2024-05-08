@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:rahtk_mobile/core/ui/theme/colors.dart';
 
 double _radius = 50;
 ThemeData lightTheme = ThemeData(
+  progressIndicatorTheme:const ProgressIndicatorThemeData(
+    color: RahtkColors.tealColor,
+    refreshBackgroundColor: Colors.white,
+  ),
   indicatorColor: Colors.white,
   useMaterial3: true,
   textSelectionTheme: const TextSelectionThemeData(

@@ -1,3 +1,4 @@
+import 'package:domain/features/auth/entities/forget_password_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rahtk_mobile/core/helper/constants.dart';
@@ -6,7 +7,7 @@ import 'package:rahtk_mobile/features/auth/email_verification/presentation/page/
 import 'package:rahtk_mobile/features/auth/login/business_logic/login_cubit.dart';
 import 'package:rahtk_mobile/features/auth/login/presentation/page/login_page.dart';
 import 'package:rahtk_mobile/features/auth/registration/business_logic/registration_cubit.dart';
-import 'package:rahtk_mobile/features/auth/verify_otp/presentaion/page/verify_otp_page.dart';
+import 'package:rahtk_mobile/features/auth/verify_otp/presentation/page/verify_otp_page.dart';
 import 'package:rahtk_mobile/features/home/business_logic/home_cubit.dart';
 import 'package:rahtk_mobile/features/home/presentation/page/home_page.dart';
 import 'package:rahtk_mobile/features/on_board/business_logic/on_boarding_cubit.dart';
@@ -52,8 +53,9 @@ class AppRouter {
       case AppRoutes.verifyOtp:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) =>
-                getIt<VerifyOtpCubit>(param1: settings.arguments as String),
+            create: (_) => getIt<VerifyOtpCubit>(
+              param1: settings.arguments as String,
+            ),
             child: VerifyOtpPage(),
           ),
         );
@@ -67,7 +69,9 @@ class AppRouter {
       case AppRoutes.forgetPassword:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (_) => getIt<ForgetPasswordCubit>(),
+            create: (_) => getIt<ForgetPasswordCubit>(
+              param1: settings.arguments as ForgetPasswordEntity,
+            ),
             child: ForgetPasswordPage(),
           ),
         );

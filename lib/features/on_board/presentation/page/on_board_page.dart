@@ -78,8 +78,9 @@ class OnBoardPage extends StatelessWidget {
                       );
                     } else {
                       cubit.updateFirstLaunch();
-                      Navigator.of(context).pushNamed(
+                      Navigator.of(context).pushNamedAndRemoveUntil(
                         AppRoutes.login,
+                        (route) => false,
                       );
                     }
                   },

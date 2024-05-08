@@ -2,10 +2,10 @@ import 'package:data/network/encode_able.dart';
 import 'package:data/network/remote_target.dart';
 
 class RegistrationRequest extends IRemoteTarget {
-  final EncodeAble encodeAble;
+  final EncodeAble data;
 
-  RegistrationRequest({required this.encodeAble}) {
-    body = encodeAble.toJson();
+  RegistrationRequest({required this.data}) {
+    body = data.toJson();
   }
 
   @override

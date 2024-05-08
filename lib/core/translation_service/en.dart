@@ -9,5 +9,17 @@ Map<String, String> en = {
   "forget_your_password":"Forget your password?",
   "don't_have_an_account":"Don't have an account?",
   "sign_up":"Sign up",
-  "invalid_otp":"Invalid OTP"
+  "invalid_otp":"Invalid OTP",
+  "verify":"Verify",
+  "verify_otp":"Verify OTP",
+  "passwords_don't_match":"Passwords don't match",
+  "confirm":"Confirm",
+  "confirm_password":"Confirm Password",
+  "verify_your_email":"Verify your email",
+  "otp_sent_to_your_email":"We have sent you an Email with a code to enter OTP",
+  "sign_up_to_your_account":"Sign up to your account",
+  "last_name":"Last Name",
+  "first_name":"First Name",
+  "re_enter_password":"Re-Enter Password",
+  "create":"Create",
 };

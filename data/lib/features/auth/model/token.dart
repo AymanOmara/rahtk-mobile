@@ -7,7 +7,7 @@ class TokenModel implements DecodeAble<TokenModel?, Map<String, dynamic>> {
   @override
   TokenModel? fromJson(Map json) {
     return TokenModel()
-      ..token = json['token']?.toString()
+      ..token = json['accessToken']?.toString()
       ..refreshToken = json['refreshToken']?.toString()
       ..isAdmin = json["isAdmin"]
       ..status = json['status']?.toString();

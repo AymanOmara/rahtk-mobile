@@ -1,3 +1,4 @@
+import 'package:domain/features/auth/entities/forget_password_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rahtk_mobile/core/helper/constants.dart';
@@ -16,10 +17,18 @@ class VerifyOtpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<VerifyOtpCubit, VerifyOtpState>(
       listener: (context, state) {
-        if(state is VerifyOtpResult){
+        if (state is VerifyOtpResult) {
+          VerifyOtpCubit cubit = BlocProvider.of(context);
           Get.snackbar("", state.message);
-          if(state.success){
-            Navigator.pushNamed(context, AppRoutes.forgetPassword);
+          if (state.success) {
+            Navigator.pushNamed(
+              context,
+              AppRoutes.forgetPassword,
+              arguments: ForgetPasswordEntity(
+                email: cubit.email,
+                otp: cubit.otp,
+              ),
+            );
           }
         }
       },
@@ -44,8 +53,8 @@ class VerifyOtpPage extends StatelessWidget {
                       onChanged: (value) {
                         cubit.otp = value;
                       },
-                      validator: (otp){
-                        if((otp?.length ?? 0) < 4){
+                      validator: (otp) {
+                        if ((otp?.length ?? 0) < 4) {
                           return 'invalid_otp'.tr;
                         }
                         return null;
@@ -70,21 +79,33 @@ class VerifyOtpPage extends StatelessWidget {
                   ),
                   RahtkLoadingButton(
                     loadingState: cubit.loadingState,
+                    loaderColor: Colors.white,
                     child: MaterialButton(
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50),
                       ),
                       color: Colors.white,
-                      padding: EdgeInsets.symmetric(
+                      padding: const EdgeInsets.symmetric(
                         vertical: 15,
-                        horizontal: Get.width * 0.5 - 40,
                       ),
                       onPressed: () {
                         if (_formState.currentState!.validate()) {
                           cubit.submitOtp();
                         }
                       },
-                      child: Text("login".tr),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "verify_otp".tr,
+                            style: const TextStyle(
+                              color: RahtkColors.tealColor,
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
