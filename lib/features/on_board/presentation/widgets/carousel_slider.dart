@@ -9,7 +9,7 @@ import 'package:rahtk_mobile/features/on_board/business_logic/on_boarding_cubit.
 import 'dotted_widget.dart';
 
 class OnBoardingCarouselSlider extends StatelessWidget {
-  OnBoardingCarouselSlider({
+  const OnBoardingCarouselSlider({
     super.key,
     required this.pageViewController,
   });
@@ -23,7 +23,7 @@ class OnBoardingCarouselSlider extends StatelessWidget {
       height: Get.height * 0.5,
       child: PageView(
         controller: pageViewController,
-        onPageChanged: (pageIndex)=> cubit.changeIndex(pageIndex),
+        onPageChanged: (pageIndex) => cubit.changeIndex(pageIndex),
         children: cubit.onBoardingSliders.asMap().entries.map((entry) {
           return SizedBox(
             child: Column(
