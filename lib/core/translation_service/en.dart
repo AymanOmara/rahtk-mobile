@@ -22,4 +22,6 @@ Map<String, String> en = {
   "first_name":"First Name",
   "re_enter_password":"Re-Enter Password",
   "create":"Create",
+  "home":"Home",
+  "order_history":"Order History",
 };

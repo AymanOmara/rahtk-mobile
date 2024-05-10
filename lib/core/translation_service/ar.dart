@@ -22,4 +22,7 @@ Map<String, String> ar = {
   "first_name": "اسم الشخصي",
   "re_enter_password":"اعد ادخال كلمة المرور",
   "create": "انشاء",
+  "home":"الرئيسية",
+  "order_history":"تاريخ الطلبات",
+
 };

@@ -8,8 +8,6 @@ import 'package:rahtk_mobile/features/auth/login/business_logic/login_cubit.dart
 import 'package:rahtk_mobile/features/auth/login/presentation/page/login_page.dart';
 import 'package:rahtk_mobile/features/auth/registration/business_logic/registration_cubit.dart';
 import 'package:rahtk_mobile/features/auth/verify_otp/presentation/page/verify_otp_page.dart';
-import 'package:rahtk_mobile/features/home/business_logic/home_cubit.dart';
-import 'package:rahtk_mobile/features/home/presentation/page/home_page.dart';
 import 'package:rahtk_mobile/features/on_board/business_logic/on_boarding_cubit.dart';
 
 import 'features/auth/email_verification/business_logic/email_verification_cubit.dart';
@@ -17,6 +15,8 @@ import 'features/auth/forget_password/business_logic/forget_password_cubit.dart'
 import 'features/auth/forget_password/presentation/page/forget_password_page.dart';
 import 'features/auth/registration/presentation/page/registration_page.dart';
 import 'features/auth/verify_otp/business_logic/verify_otp_cubit.dart';
+import 'features/main/home/business_logic/home_cubit.dart';
+import 'features/main/navigation_br/presentation/main_navigation.dart';
 import 'features/on_board/presentation/page/on_board_page.dart';
 
 class AppRouter {
@@ -33,7 +33,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => getIt<HomeCubit>(),
-            child: const HomePage(),
+            child: const MainNavigation(),
           ),
         );
       case AppRoutes.onBoarding:

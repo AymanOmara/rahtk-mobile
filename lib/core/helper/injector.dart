@@ -6,14 +6,15 @@ import 'package:rahtk_mobile/features/auth/forget_password/business_logic/forget
 import 'package:rahtk_mobile/features/auth/login/business_logic/login_cubit.dart';
 import 'package:rahtk_mobile/features/auth/registration/business_logic/registration_cubit.dart';
 import 'package:rahtk_mobile/features/auth/verify_otp/business_logic/verify_otp_cubit.dart';
-import 'package:rahtk_mobile/features/home/business_logic/home_cubit.dart';
+import 'package:rahtk_mobile/features/main/home/business_logic/home_cubit.dart';
+import 'package:rahtk_mobile/features/main/navigation_br/business_logic/rahtk_bottom_navigation_bar_cubit.dart';
 import 'package:rahtk_mobile/features/on_board/business_logic/on_boarding_cubit.dart';
 
 var getIt = GetIt.I;
 
 Future<void> initializeDependencies(GetIt diInjector) async {
   getIt.registerFactory(() => AppCubit(diInjector()));
-
+  getIt.registerSingleton(RahtkBottomNavigationBarCubit());
   /// ********* Auth **********
   getIt.registerFactory(() => LoginCubit(diInjector()));
   getIt.registerFactory(() => EmailVerificationCubit(diInjector()));

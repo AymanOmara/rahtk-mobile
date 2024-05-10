@@ -13,6 +13,7 @@ import 'app_router.dart';
 import 'core/helper/injector.dart';
 import 'core/translation_service/translation_service.dart';
 import 'core/ui/theme/light_mode.dart';
+import 'features/main/navigation_br/business_logic/rahtk_bottom_navigation_bar_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +36,9 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (_) => getIt<AppCubit>(),
+          ),
+          BlocProvider(
+            create: (_) => getIt<RahtkBottomNavigationBarCubit>(),
           ),
         ],
         child: BlocBuilder<AppCubit, AppState>(

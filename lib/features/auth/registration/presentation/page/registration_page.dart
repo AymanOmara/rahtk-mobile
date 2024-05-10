@@ -18,16 +18,17 @@ class RegistrationPage extends StatelessWidget {
     return BlocConsumer<RegistrationCubit, RegistrationState>(
       listener: (context, state) {
         if (state is RegistrationResult) {
-          Get.snackbar("", state.message);
           if (state.success) {
+            Navigator.of(context).pop();
             _formState.currentState?.reset();
           }
+          Get.snackbar("", state.message);
         }
       },
       builder: (context, state) {
         RegistrationCubit cubit = BlocProvider.of(context);
         return GestureDetector(
-          onTap: (){
+          onTap: () {
             FocusScope.of(context).requestFocus(FocusNode());
           },
           child: Scaffold(
@@ -84,7 +85,8 @@ class RegistrationPage extends StatelessWidget {
                                   labelText: "first_name".tr,
                                 ),
                                 onChanged: (firstName) {
-                                  cubit.registrationEntity.firstName = firstName;
+                                  cubit.registrationEntity.firstName =
+                                      firstName;
                                 },
                                 validator: (txt) =>
                                     Validator.validateRequired(txt),
@@ -138,7 +140,8 @@ class RegistrationPage extends StatelessWidget {
                                   labelText: "re_enter_password".tr,
                                 ),
                                 onChanged: (passwordConfirmation) {
-                                  cubit.registrationEntity.passwordConfirmation =
+                                  cubit.registrationEntity
+                                          .passwordConfirmation =
                                       passwordConfirmation;
                                 },
                                 validator: (passwordConfirmation) =>
@@ -172,7 +175,7 @@ class RegistrationPage extends StatelessWidget {
                                     children: [
                                       Text(
                                         "create".tr,
-                                        style:const TextStyle(
+                                        style: const TextStyle(
                                           color: RahtkColors.tealColor,
                                           fontSize: 16,
                                         ),
