@@ -10,6 +10,7 @@ abstract interface class IUserLocal {
   void setRefreshToken(String refreshToken);
 
   bool get firstRun;
+
   void setFirstRun();
 
   bool get login;

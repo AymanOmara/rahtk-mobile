@@ -24,4 +24,9 @@ Map<String, String> en = {
   "create":"Create",
   "home":"Home",
   "order_history":"Order History",
+  "groceries":"Groceries",
+  "search_product":"Search Product",
+  "new_product":"New Product",
+  "see_all":"See All",
+  "popular_products":"Popular Products"
 };

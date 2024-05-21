@@ -23,7 +23,7 @@ Future<void> initializeDependencies(GetIt diInjector) async {
   getIt.registerFactoryParam((param1, param2) => ForgetPasswordCubit(param1 as ForgetPasswordEntity,diInjector()));
 
   /// ********* Home **********
-  getIt.registerFactory(() => HomeCubit());
+  getIt.registerFactory(() => HomeCubit(diInjector()));
 
   /// ********* OnBoarding **********
   getIt.registerFactory(() => OnBoardingCubit(diInjector()));

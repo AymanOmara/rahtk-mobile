@@ -53,7 +53,8 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<Result<Response<bool>, NetworkException>> verifyEmail(
-      String email) async {
+    String email,
+  ) async {
     var result =
         await _service.fetchData<bool>(EmailVerificationRequest(email: email));
     switch (result) {

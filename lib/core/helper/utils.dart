@@ -42,7 +42,9 @@ class Validator {
   }
 
   static String? validateConfirmPassword(
-      String? confirmPassword, String? password) {
+    String? confirmPassword,
+    String? password,
+  ) {
     if (confirmPassword.isNullOrEmpty()) {
       return "required_field".tr;
     } else if ((confirmPassword?.length ?? 0) < 4) {
