@@ -93,21 +93,20 @@ class ProductWidget extends StatelessWidget {
                                 ),
                               ),
                             ),
-
                           ],
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              product.discountPrice(),
+                              product.discountPrice().isNotEmpty ? product.price.toString() :"",
                               style:const TextStyle(
                                 fontSize: 10,
                                 decoration: TextDecoration.lineThrough,
                               ),
                             ),
                             Text(
-                              product.price.toString(),
+                                product.discountPrice().isNotEmpty ? product.discountPrice() :  product.price.toString(),
                               softWrap: true,
                               style: const TextStyle(
                                 color: RahtkColors.tealColor,
