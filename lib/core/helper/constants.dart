@@ -12,4 +12,8 @@ class AppRoutes {
 
   /// ********* Misc **********
   static const onBoarding = "/onBoarding";
+
+  /// ********* Product **********
+  static const categoryProducts = "/categoryProducts";
+  static const productDetails = "/productDetails";
 }

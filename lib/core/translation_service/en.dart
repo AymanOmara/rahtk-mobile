@@ -28,5 +28,6 @@ Map<String, String> en = {
   "search_product":"Search Product",
   "new_product":"New Product",
   "see_all":"See All",
-  "popular_products":"Popular Products"
+  "popular_products":"Popular Products",
+  "browse":"Browse"
 };

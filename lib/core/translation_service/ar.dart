@@ -31,4 +31,5 @@ Map<String, String> ar = {
   "my_cart": "سلةي",
   "my_profile": "الملف الشخصي",
   "popular_products":"منتجات مشهورة",
+  "browse":"تصفح"
 };

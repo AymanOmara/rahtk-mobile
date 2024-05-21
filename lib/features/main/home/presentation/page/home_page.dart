@@ -29,72 +29,73 @@ class HomePage extends StatelessWidget {
               ),
               Expanded(
                 child: LoadingWidget(
-                    loadingState: cubit.loadingState,
-                    successWidget: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          Wrap(
-                            spacing: 10,
-                            runSpacing: 10,
+                  loadingState: cubit.loadingState,
+                  successWidget: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        Wrap(
+                          spacing: 10,
+                          runSpacing: 10,
+                          children: [
+                            ...cubit.categories
+                                .map((e) => CategoryWidget(category: e)),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 28,
+                        ),
+                        const NewArrivalProducts(),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              ...cubit.categories
-                                  .map((e) => CategoryWidget(category: e)),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 28,
-                          ),
-                          const NewArrivalProducts(),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 20),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "popular_products".tr,
+                              Text(
+                                "popular_products".tr,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                                width: 100,
+                                decoration: BoxDecoration(
+                                  color: RahtkColors.tealColor,
+                                  borderRadius: BorderRadius.circular(50),
+                                ),
+                                child: Text(
+                                  "see_all".tr,
                                   style: const TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w500,
                                   ),
                                 ),
-                                Container(
-                                  alignment: Alignment.center,
-                                  padding:
-                                  const EdgeInsets.symmetric(vertical: 10),
-                                  width: 100,
-                                  decoration: BoxDecoration(
-                                    color: RahtkColors.tealColor,
-                                    borderRadius: BorderRadius.circular(50),
-                                  ),
-                                  child: Text(
-                                    "see_all".tr,
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                )
-                              ],
-                            ),
+                              )
+                            ],
                           ),
-                          const SizedBox(
-                            height: 20,
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: cubit.products
+                                .map((e) => ProductWidget(product: e))
+                                .toList(),
                           ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: Row(
-                              children: cubit.products
-                                  .map((e) => ProductWidget(product: e))
-                                  .toList(),
-                            ),
-                          )
-                        ],
-                      ),
+                        )
+                      ],
                     ),
-                    onRetry: () {
-                      cubit.fetchCategories();
-                    }),
+                  ),
+                  onRetry: () {
+                    cubit.fetchCategories();
+                  },
+                ),
               ),
             ],
           ),
