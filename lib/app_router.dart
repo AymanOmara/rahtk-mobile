@@ -11,6 +11,7 @@ import 'package:rahtk_mobile/features/auth/verify_otp/presentation/page/verify_o
 import 'package:rahtk_mobile/features/main/home/display/category_display.dart';
 import 'package:rahtk_mobile/features/on_board/business_logic/on_boarding_cubit.dart';
 import 'package:rahtk_mobile/features/products/category_products/presentation/page/category_products_page.dart';
+import 'package:rahtk_mobile/features/products/product_details/business_logic/product_details_cubit.dart';
 
 import 'features/auth/email_verification/business_logic/email_verification_cubit.dart';
 import 'features/auth/forget_password/business_logic/forget_password_cubit.dart';
@@ -21,6 +22,8 @@ import 'features/main/home/business_logic/home_cubit.dart';
 import 'features/main/home/display/product_display.dart';
 import 'features/main/navigation_br/presentation/main_navigation.dart';
 import 'features/on_board/presentation/page/on_board_page.dart';
+import 'features/products/cart/presentation/cart_page.dart';
+import 'features/products/favorites/presentation/page/favorite_page.dart';
 import 'features/products/product_details/presentation/page/product_details_page.dart';
 
 class AppRouter {
@@ -87,9 +90,20 @@ class AppRouter {
         );
       case AppRoutes.productDetails:
         return MaterialPageRoute(
-          builder: (_) => ProductDetailsPage(
-            product: settings.arguments as ProductDisplay,
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<ProductDetailsCubit>(
+              param1: settings.arguments as ProductDisplay,
+            ),
+            child: const ProductDetailsPage(),
           ),
+        );
+      case AppRoutes.favorites:
+        return MaterialPageRoute(
+          builder: (_) => const FavoritePage(),
+        );
+      case AppRoutes.cart:
+        return MaterialPageRoute(
+          builder: (_) => const CartPage(),
         );
     }
     return null;

@@ -36,5 +36,12 @@ class HomeCubit extends Cubit<HomeState> {
       }
     });
   }
-
+  void addToFavorites(int id) {
+    products.firstWhere((element) => element.id == id).isFavorite = true;
+    emit(HomeResult());
+  }
+  void removeFromFavorites(int id) {
+    products.firstWhere((element) => element.id == id).isFavorite = false;
+    emit(HomeResult());
+  }
 }

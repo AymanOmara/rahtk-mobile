@@ -1,6 +1,16 @@
 import 'package:data/network/decode_able.dart';
 
-class ProductModel implements DecodeAble<List<ProductModel>, List?> {
+class ProductsModel implements DecodeAble<List<ProductModel>, List?> {
+  @override
+  List<ProductModel> fromJson(List? json) {
+    return json
+            ?.map<ProductModel>((e) => ProductModel().fromJson(e))
+            .toList() ??
+        [];
+  }
+}
+
+class ProductModel implements DecodeAble<ProductModel, Map?> {
   int? id;
   String? arabicName;
   String? englishName;
@@ -11,22 +21,33 @@ class ProductModel implements DecodeAble<List<ProductModel>, List?> {
   String? imagePath;
   String? createdDate;
   int? categoryId;
+  bool? isFavorite;
+  String? priceType;
+  String? condition;
+  String? categoryNameEn;
+  String? categoryNameAr;
+  String? location;
+  String? deliveryDetails;
 
   @override
-  List<ProductModel> fromJson(List? json) {
-    return json
-            ?.map<ProductModel>((e) => ProductModel()
-              ..id = e['id']
-              ..imagePath = e['imagePath']
-              ..arabicDescription = e['arabicDescription']
-              ..englishDescription = e['englishDescription']
-              ..price = e['price']
-              ..discount = e['discountPercentage']
-              ..arabicName = e['arabicName']
-              ..createdDate = e['createdDate']
-              ..englishName = e['englishName']
-              ..categoryId = e['categoryId'])
-            .toList() ??
-        [];
+  ProductModel fromJson(Map? json) {
+    return ProductModel()
+      ..id = json?['id']
+      ..imagePath = json?['imagePath']
+      ..arabicDescription = json?['arabicDescription']
+      ..englishDescription = json?['englishDescription']
+      ..price = json?['price']
+      ..discount = json?['discountPercentage']
+      ..arabicName = json?['arabicName']
+      ..createdDate = json?['createdDate']
+      ..englishName = json?['englishName']
+      ..isFavorite = json?['isFavorite']
+      ..priceType = json?['priceType']
+      ..categoryNameEn = json?['categoryNameEn']
+      ..categoryNameAr = json?['categoryNameAr']
+      ..condition = json?['condition']
+      ..location = json?['location']
+      ..deliveryDetails = json?['deliveryDetails']
+      ..categoryId = json?['categoryId'];
   }
 }

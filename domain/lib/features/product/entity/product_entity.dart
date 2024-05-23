@@ -9,7 +9,13 @@ class ProductEntity {
   final String image;
   final String createdAt;
   final int categoryId;
-
+  final bool isFavorite;
+  final String condition;
+  final String priceType;
+  final String categoryNameAr;
+  final String categoryNameEn;
+  final String location;
+  final String deliveryDetails;
   const ProductEntity({
     required this.id,
     required this.arabicName,
@@ -21,5 +27,12 @@ class ProductEntity {
     required this.image,
     required this.createdAt,
     required this.categoryId,
+    required this.isFavorite,
+    required this.condition,
+    required this.categoryNameAr,
+    required this.categoryNameEn,
+    required this.priceType,
+    required this.location,
+    required this.deliveryDetails,
   });
 }

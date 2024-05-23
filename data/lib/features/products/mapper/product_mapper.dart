@@ -14,6 +14,13 @@ extension ProductMapper on ProductModel? {
       englishName: this?.englishName ?? "",
       createdAt: this?.createdDate ?? "",
       categoryId: this?.categoryId ?? 0,
+      isFavorite: this?.isFavorite ?? false,
+      priceType: this?.priceType ?? "",
+      condition: this?.condition ?? "",
+      categoryNameEn: this?.categoryNameEn ?? "",
+      categoryNameAr: this?.categoryNameAr ?? "",
+      location: this?.location ?? "",
+      deliveryDetails: this?.deliveryDetails ?? "",
     );
   }
 }

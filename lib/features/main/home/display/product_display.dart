@@ -12,8 +12,15 @@ class ProductDisplay {
   final double discountPercentage;
   final String image;
   final String createdAt;
+  final String condition;
+  bool isFavorite;
+  final String priceType;
+  final String categoryNameAr;
+  final String categoryNameEn;
+  final String location;
+  final String deliveryDetails;
 
-  const ProductDisplay({
+  ProductDisplay({
     required this.id,
     required this.arabicName,
     required this.englishName,
@@ -24,6 +31,13 @@ class ProductDisplay {
     required this.image,
     required this.createdAt,
     required this.categoryId,
+    required this.isFavorite,
+    required this.condition,
+    required this.location,
+    required this.priceType,
+    required this.categoryNameEn,
+    required this.categoryNameAr,
+    required this.deliveryDetails,
   });
 
   String get localizedName =>
@@ -31,6 +45,9 @@ class ProductDisplay {
 
   String get localizedDescription =>
       Get.locale?.languageCode == "ar" ? arabicDescription : englishDescription;
+
+  String get localizedCategoryName =>
+      Get.locale?.languageCode == "ar" ? categoryNameAr : categoryNameEn;
 
   String discountPrice() {
     var amount = (price - (price * (discountPercentage / 100))).toString();
@@ -51,6 +68,13 @@ extension ProductDisplayMapper on ProductEntity {
       image: image,
       createdAt: createdAt,
       categoryId: categoryId,
+      isFavorite: isFavorite,
+      condition: condition,
+      categoryNameAr: categoryNameAr,
+      categoryNameEn: categoryNameEn,
+      location: location,
+      priceType: priceType,
+      deliveryDetails: deliveryDetails,
     );
   }
 }

@@ -5,7 +5,7 @@ class RefreshTokenModel implements DecodeAble<RefreshTokenModel?, Map<String, dy
   @override
   RefreshTokenModel? fromJson(Map json) {
     return RefreshTokenModel()
-      ..token = json['token']?.toString()
+      ..token = json['accessToken']?.toString()
       ..refreshToken = json['refreshToken']?.toString()
       ..status = json['status']?.toString();
   }

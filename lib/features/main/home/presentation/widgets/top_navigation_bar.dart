@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
+import 'package:rahtk_mobile/core/helper/constants.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
 class TopNavigationBar extends StatelessWidget {
   const TopNavigationBar({super.key});
@@ -31,17 +32,27 @@ class TopNavigationBar extends StatelessWidget {
               ),
               Row(
                 children: [
-                  SvgPicture.asset(
-                    "assets/images/favorite_ic.svg",
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).pushNamed(AppRoutes.favorites);
+                    },
+                    child: SvgPicture.asset(
+                      "assets/images/favorite_ic.svg",
+                    ),
                   ),
                   const SizedBox(
                     width: 10,
                   ),
-                  SvgPicture.asset(
-                    "assets/images/cart_ic.svg",
-                    colorFilter: const ColorFilter.mode(
-                      Colors.white,
-                      BlendMode.srcIn,
+                  InkWell(
+                    onTap: (){
+                      Navigator.of(context).pushNamed(AppRoutes.cart);
+                    },
+                    child: SvgPicture.asset(
+                      "assets/images/cart_ic.svg",
+                      colorFilter: const ColorFilter.mode(
+                        Colors.white,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                 ],

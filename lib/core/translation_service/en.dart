@@ -29,5 +29,15 @@ Map<String, String> en = {
   "new_product":"New Product",
   "see_all":"See All",
   "popular_products":"Popular Products",
-  "browse":"Browse"
+  "browse":"Browse",
+  "wishlist":"Wishlist",
+  "off":"OFF",
+  "share_product_note":"I found this awesome product on Rahtk. Please share it with your friends and family. Thank you.",
+  "conditions":"Condition",
+  "price_type":"Price Type",
+  "category":"Category",
+  "location":"Location",
+  "additional_details":"Additional Details",
+  "delivery_details":"Delivery Details",
+  "add_to_cart":"Add to Cart"
 };

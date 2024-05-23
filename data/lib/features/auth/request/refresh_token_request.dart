@@ -8,12 +8,12 @@ class RefreshTokenRequest extends IRemoteTarget {
     required this.token,
     required this.refreshToken,
   }) {
-    body = {"token": token, "refreshToken": refreshToken};
+    body = {"accessToken": token, "refreshToken": refreshToken};
   }
 
   @override
   HttpMethod get method => HttpMethod.post;
 
   @override
-  String? get path => "api/Auth/token/refresh";
+  String? get path => "api/User/refresh-token";
 }

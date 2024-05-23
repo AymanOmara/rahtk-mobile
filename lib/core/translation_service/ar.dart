@@ -30,6 +30,17 @@ Map<String, String> ar = {
   "see_all": "رؤية الكل",
   "my_cart": "سلةي",
   "my_profile": "الملف الشخصي",
-  "popular_products":"منتجات مشهورة",
-  "browse":"تصفح"
+  "popular_products": "منتجات مشهورة",
+  "browse": "تصفح",
+  "wishlist": "قائمة الأمنيات",
+  "off": "خصم",
+  "share_product_note":
+      "وجدت هذا المنتج الرائع على موقع Rahtk. يرجى مشاركته مع أصدقائك وعائلتك. شكرًا لك.",
+  "condition": "الحالة",
+  "price_type": "نوع السعر",
+  "category": "الفئة",
+  "location": "الموقع",
+  "additional_details": "تفاصيل اضافية",
+  "delivery_details": "تفاصيل التوصيل",
+  "add_to_cart": "اضف للسلة"
 };

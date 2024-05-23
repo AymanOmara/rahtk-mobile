@@ -16,7 +16,7 @@ class CategoryModel implements DecodeAble<List<CategoryModel>, List?> {
               ..imagePath = e['imagePath']
               ..arabicName = e['arabicName']
               ..englishName = e['englishName']
-              ..products = ProductModel().fromJson(e['products']))
+              ..products = ProductsModel().fromJson(e['products']))
             .toList() ??
         [];
   }

@@ -38,7 +38,7 @@ class BaseApi implements IAPIService {
         var refreshTokenResult = await refreshToken();
         switch (refreshTokenResult) {
           case Success():
-            return await fetchData<T>(targetType,data:  data);
+            return await fetchData<T>(targetType, data: data);
           case Failure(exception: final exception):
             return Failure(exception);
         }
@@ -95,7 +95,9 @@ class BaseApi implements IAPIService {
     if (refreshTokenResult.statusCode == 200) {
       var data =
           BaseResponse<RefreshTokenModel>(decodeAble: RefreshTokenModel())
-              .fromJson(refreshTokenResult.data);
+              .fromJson(
+        refreshTokenResult.data,
+      );
       if (data.data?.token != null) {
         userLocal.setAccessToken(data.data?.token ?? "");
         userLocal.setRefreshToken(data.data?.refreshToken ?? "");

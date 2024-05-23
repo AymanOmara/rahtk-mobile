@@ -14,6 +14,8 @@ import 'core/helper/injector.dart';
 import 'core/translation_service/translation_service.dart';
 import 'core/ui/theme/light_mode.dart';
 import 'features/main/navigation_br/business_logic/rahtk_bottom_navigation_bar_cubit.dart';
+import 'features/products/cart/business_logic/cart_cubit.dart';
+import 'features/products/favorites/business_logic/favorites_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,6 +41,12 @@ class MyApp extends StatelessWidget {
           ),
           BlocProvider(
             create: (_) => getIt<RahtkBottomNavigationBarCubit>(),
+          ),
+          BlocProvider(
+            create: (_) => getIt<FavoritesCubit>(),
+          ),
+          BlocProvider(
+            create: (_) => getIt<CartCubit>(),
           ),
         ],
         child: BlocBuilder<AppCubit, AppState>(
@@ -73,10 +81,12 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-class MyHttpOverrides extends HttpOverrides{
+
+class MyHttpOverrides extends HttpOverrides {
   @override
-  HttpClient createHttpClient(SecurityContext? context){
+  HttpClient createHttpClient(SecurityContext? context) {
     return super.createHttpClient(context)
-      ..badCertificateCallback = (X509Certificate cert, String host, int port)=> true;
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
   }
 }
