@@ -16,17 +16,23 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         Navigator.of(context).pushNamed(
           AppRoutes.productDetails,
           arguments: product,
         );
       },
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 5),
+        padding: const EdgeInsets.symmetric(
+          vertical: 5,
+        ),
         child: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          padding: const EdgeInsets.all(1),
+          margin: const EdgeInsets.symmetric(
+            horizontal: 10,
+          ),
+          padding: const EdgeInsets.all(
+            1,
+          ),
           clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
             color: Colors.white,
@@ -105,14 +111,18 @@ class ProductWidget extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            product.discountPrice().isNotEmpty ? product.price.toString() :"",
-                            style:const TextStyle(
+                            product.discountPrice().isNotEmpty
+                                ? product.price.toString()
+                                : "",
+                            style: const TextStyle(
                               fontSize: 10,
                               decoration: TextDecoration.lineThrough,
                             ),
                           ),
                           Text(
-                              product.discountPrice().isNotEmpty ? product.discountPrice() :  product.price.toString(),
+                            product.discountPrice().isNotEmpty
+                                ? product.discountPrice()
+                                : product.price.toString(),
                             softWrap: true,
                             style: const TextStyle(
                               color: RahtkColors.tealColor,

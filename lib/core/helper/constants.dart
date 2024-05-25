@@ -1,5 +1,6 @@
 class AppRoutes {
   AppRoutes._();
+
   /// ********* Auth **********
   static const login = "/login";
   static const forgetPassword = "/forgetPassword";
@@ -18,4 +19,9 @@ class AppRoutes {
   static const productDetails = "/productDetails";
   static const favorites = "/favorites";
   static const cart = "/cart";
+  static const addAddress = "/addAddress";
+
+  /// ********* order **********
+  static const paymentOptions = "/paymentOptions";
+  static const addPayment = "/addPayment";
 }

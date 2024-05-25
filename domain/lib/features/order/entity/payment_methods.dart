@@ -1,0 +1,4 @@
+enum PaymentMethods {
+  debitCreditCard,
+  cash,
+}

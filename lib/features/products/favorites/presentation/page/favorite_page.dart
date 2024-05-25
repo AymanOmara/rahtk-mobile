@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rahtk_mobile/core/ui/loading/loading_widget.dart';
+import 'package:rahtk_mobile/core/ui/rahtk_navigation_bar.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
 import 'package:rahtk_mobile/features/main/home/presentation/widgets/product_widget.dart';
 import 'package:rahtk_mobile/features/products/favorites/business_logic/favorites_cubit.dart';
@@ -18,56 +19,11 @@ class FavoritePage extends StatelessWidget {
         return Scaffold(
           body: Column(
             children: [
-              Container(
-                height: 140,
-                width: Get.width,
-                decoration: const BoxDecoration(
-                  color: RahtkColors.tealColor,
-                ),
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: MediaQuery.of(context).padding.top,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          Row(
-                            children: [
-                              IconButton(
-                                onPressed: () {
-                                  Get.back();
-                                },
-                                icon: SvgPicture.asset(
-                                  "assets/images/back_ic.svg",
-                                  width: 24,
-                                  height: 24,
-                                  colorFilter: const ColorFilter.mode(
-                                    Colors.white,
-                                    BlendMode.srcIn,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "wishlist".tr,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 24,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+              RahtkNavigationBar(
+                title: "wishlist".tr,
+              ),
+              const SizedBox(
+                height: 20,
               ),
               LoadingWidget(
                 loadingState: cubit.loading,

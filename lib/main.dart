@@ -1,11 +1,13 @@
 import 'dart:io';
 
+import 'package:common/common.dart';
 import 'package:di/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:paymob_payment/paymob_payment.dart';
 import 'package:rahtk_mobile/core/helper/constants.dart';
 import 'package:rahtk_mobile/features/app/app_cubit.dart';
 
@@ -14,10 +16,15 @@ import 'core/helper/injector.dart';
 import 'core/translation_service/translation_service.dart';
 import 'core/ui/theme/light_mode.dart';
 import 'features/main/navigation_br/business_logic/rahtk_bottom_navigation_bar_cubit.dart';
-import 'features/products/cart/business_logic/cart_cubit.dart';
+import 'features/order/cart/business_logic/cart_cubit.dart';
 import 'features/products/favorites/business_logic/favorites_cubit.dart';
 
 void main() async {
+  PaymobPayment.instance.initialize(
+    apiKey: Common.payMobApiKey,
+    integrationID: 4583132,
+    iFrameID: 728907,
+  );
   WidgetsFlutterBinding.ensureInitialized();
   await DI.registerDependencies();
   await initializeDependencies(diInjector);

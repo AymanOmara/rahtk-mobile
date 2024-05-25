@@ -8,7 +8,8 @@ abstract class IRemoteTarget {
   IRemoteTarget({
     this.path,
     this.method = HttpMethod.get,
-    this.queryParameters
+    this.queryParameters,
+    this.body,
   });
 }
 

@@ -5,6 +5,10 @@ import 'package:domain/features/auth/use_case/login_use_case.dart';
 import 'package:domain/features/auth/use_case/registration_use_case.dart';
 import 'package:domain/features/auth/use_case/verify_otp_use_case.dart';
 import 'package:domain/features/on_boarding/use_case/change_first_launch_use_case.dart';
+import 'package:domain/features/order/use_case/add_payment_use_case.dart';
+import 'package:domain/features/order/use_case/create_address_use_case.dart';
+import 'package:domain/features/order/use_case/get_address_use_case.dart';
+import 'package:domain/features/order/use_case/get_payments_use_case.dart';
 import 'package:domain/features/product/use_case/add_to_favorite_use_case.dart';
 import 'package:domain/features/product/use_case/get_categories_use_case.dart';
 import 'package:domain/features/product/use_case/get_favorites_use_case.dart';
@@ -28,5 +32,11 @@ Future<void> setupUseCaseInjector(GetIt diInjector) async {
   diInjector.registerFactory(() => AddToFavoriteUseCase(diInjector()));
   diInjector.registerFactory(() => RemoveFavoriteUseCase(diInjector()));
   diInjector.registerFactory(() => GetProductDetailsUseCase(diInjector()));
+
+  /// ********* Order **********
+  diInjector.registerFactory(()=> CreateAddressUseCase(diInjector()));
+  diInjector.registerFactory(()=> GetAddressUseCase(diInjector()));
+  diInjector.registerFactory(()=> GetPaymentsUseCase(diInjector()));
+  diInjector.registerFactory(()=> AddPaymentUseCase(diInjector()));
 
 }

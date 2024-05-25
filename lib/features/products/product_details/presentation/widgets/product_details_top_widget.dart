@@ -6,7 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
 import 'package:rahtk_mobile/features/main/home/display/product_display.dart';
-import 'package:rahtk_mobile/features/products/cart/business_logic/cart_cubit.dart';
+import 'package:rahtk_mobile/features/order/cart/business_logic/cart_cubit.dart';
 import 'package:rahtk_mobile/features/products/product_details/business_logic/product_details_cubit.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -328,6 +328,7 @@ class ProductDetailsTopWidget extends StatelessWidget {
                     InkWell(
                       onTap: (){
                         if(product != null){
+                          Get.snackbar("success".tr, "product_added_to_cart".tr);
                           BlocProvider.of<CartCubit>(context).addToCart(product!);
                         }
                       },
