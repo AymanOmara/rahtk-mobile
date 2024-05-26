@@ -10,6 +10,7 @@ class GetUserStatusUseCase {
     return UserStatusEntity(
       login: _locale.login,
       firstRun: _locale.firstRun,
+      locale: _locale.getLocale,
     );
   }
 }

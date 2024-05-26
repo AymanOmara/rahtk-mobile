@@ -16,9 +16,13 @@ import 'package:domain/features/product/use_case/get_categories_use_case.dart';
 import 'package:domain/features/product/use_case/get_favorites_use_case.dart';
 import 'package:domain/features/product/use_case/get_product_details_use_case.dart';
 import 'package:domain/features/product/use_case/remove_from_favorite_use_case.dart';
+import 'package:domain/features/profile/use_case/change_language_use_case.dart';
+import 'package:domain/features/profile/use_case/get_profile_info_use_case.dart';
+import 'package:domain/features/profile/use_case/log_out_use_case.dart';
 import 'package:get_it/get_it.dart';
 
 Future<void> setupUseCaseInjector(GetIt diInjector) async {
+
   /// ********* Auth **********
   diInjector.registerFactory(() => GetUserStatusUseCase(diInjector()));
   diInjector.registerFactory(() => ChangeFirstLaunchUseCase(diInjector()));
@@ -42,5 +46,10 @@ Future<void> setupUseCaseInjector(GetIt diInjector) async {
   diInjector.registerFactory(()=> AddPaymentUseCase(diInjector()));
   diInjector.registerFactory(()=> CreateOrderUseCase(diInjector()));
   diInjector.registerFactory(()=> GetOrdersUseCase(diInjector()));
+
+  /// ********* Profile **********
+  diInjector.registerFactory(()=> GetProfileInfoUseCase(diInjector()));
+  diInjector.registerFactory(()=> LogoutUseCase(diInjector()));
+  diInjector.registerFactory(()=> ChangeLanguageUseCase(diInjector()));
 
 }

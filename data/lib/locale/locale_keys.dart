@@ -4,4 +4,5 @@ class LocaleKeys {
   static const token = "token";
   static const refreshToken = "refreshToken";
   static const firstLunch = "firstLunch";
+  static const locale = "locale";
 }

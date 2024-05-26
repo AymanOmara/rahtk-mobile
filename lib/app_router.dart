@@ -37,6 +37,7 @@ import 'features/order/payment/choose_payment_option/display/choose_payment_opti
 import 'features/products/favorites/presentation/page/favorite_page.dart';
 import 'features/order/payment/choose_payment_option/presentation/page/choose_payment_option_page.dart';
 import 'features/products/product_details/presentation/page/product_details_page.dart';
+import 'features/terms_conditions/presentation/terms_conditions_page.dart';
 
 class AppRouter {
   Route? generateRouter(RouteSettings settings) {
@@ -150,6 +151,10 @@ class AppRouter {
             orderSuccessParamsDisplay:
                 settings.arguments as OrderSuccessParamsDisplay,
           ),
+        );
+      case AppRoutes.termsConditions:
+        return MaterialPageRoute(
+          builder: (_) =>const TermsConditionsPage(),
         );
     }
     return null;

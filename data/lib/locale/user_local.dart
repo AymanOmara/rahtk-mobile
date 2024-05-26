@@ -24,7 +24,12 @@ class UserLocal implements IUserLocal {
   }
 
   @override
-  String get getLocale => "en";
+  String get getLocale => _storage.read(LocaleKeys.locale) ?? "en";
+
+  @override
+  void setLocale(String locale) {
+    _storage.write(LocaleKeys.locale, locale);
+  }
 
   @override
   bool get firstRun => _storage.read(LocaleKeys.firstLunch) ?? true;
@@ -35,5 +40,11 @@ class UserLocal implements IUserLocal {
   @override
   void setFirstRun() {
     _storage.write(LocaleKeys.firstLunch, false);
+  }
+
+  @override
+  void logout() {
+    setRefreshToken("");
+    setAccessToken("");
   }
 }

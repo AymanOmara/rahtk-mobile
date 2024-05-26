@@ -6,9 +6,10 @@ import 'package:meta/meta.dart';
 part 'app_state.dart';
 
 class AppCubit extends Cubit<AppState> {
-  AppCubit(this._useCase) : super(AppInitial()){
+  AppCubit(this._useCase) : super(AppInitial()) {
     userStatusEntity = _useCase();
   }
+
   final GetUserStatusUseCase _useCase;
   UserStatusEntity? userStatusEntity;
 }

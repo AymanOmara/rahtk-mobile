@@ -1,4 +1,3 @@
-import 'package:common/logger.dart';
 import 'package:data/common/response_entity_mapper.dart';
 import 'package:data/features/auth/mappers/forget_password_mappers.dart';
 import 'package:data/features/auth/mappers/registration_mapper.dart';
@@ -7,7 +6,6 @@ import 'package:data/features/auth/model/token.dart';
 import 'package:data/features/auth/request/email_verification_request.dart';
 import 'package:data/features/auth/request/forget_password_request.dart';
 import 'package:data/features/auth/request/login_request.dart';
-import 'package:data/features/auth/request/refresh_token_request.dart';
 import 'package:data/features/auth/request/registration_request.dart';
 import 'package:data/features/auth/request/verify_otp_request.dart';
 import 'package:data/network/i_base_api.dart';

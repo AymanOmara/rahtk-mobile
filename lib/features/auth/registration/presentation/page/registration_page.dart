@@ -121,6 +121,19 @@ class RegistrationPage extends StatelessWidget {
                                 height: 16,
                               ),
                               TextFormField(
+                                decoration: InputDecoration(
+                                  labelText: "phone_number".tr,
+                                ),
+                                onChanged: (phone) {
+                                  cubit.registrationEntity.phoneNumber = phone;
+                                },
+                                validator: (phone) =>
+                                    Validator.validateRequired(phone),
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              TextFormField(
                                 obscureText: true,
                                 decoration: InputDecoration(
                                   labelText: "password".tr,

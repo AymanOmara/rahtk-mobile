@@ -8,6 +8,7 @@ extension RegistrationMapper on RegistrationEntity {
       lastName: lastName,
       email: email,
       password: password,
+      phoneNumber: phoneNumber,
     );
   }
 }

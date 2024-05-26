@@ -1,9 +1,11 @@
 abstract interface class IUserLocal {
   String get getLocale;
+  void setLocale(String locale);
 
   String get getAccessToken;
 
   void setAccessToken(String accessToken);
+
 
   String get getRefreshToken;
 
@@ -13,5 +15,8 @@ abstract interface class IUserLocal {
 
   void setFirstRun();
 
+  void logout();
+
   bool get login;
+
 }
