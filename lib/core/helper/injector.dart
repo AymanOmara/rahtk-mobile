@@ -13,6 +13,7 @@ import 'package:rahtk_mobile/features/auth/verify_otp/business_logic/verify_otp_
 import 'package:rahtk_mobile/features/main/home/business_logic/home_cubit.dart';
 import 'package:rahtk_mobile/features/main/home/display/product_display.dart';
 import 'package:rahtk_mobile/features/main/navigation_br/business_logic/rahtk_bottom_navigation_bar_cubit.dart';
+import 'package:rahtk_mobile/features/main/order_history/business_logic/order_history_cubit.dart';
 import 'package:rahtk_mobile/features/on_board/business_logic/on_boarding_cubit.dart';
 import 'package:rahtk_mobile/features/order/cart/business_logic/cart_cubit.dart';
 import 'package:rahtk_mobile/features/order/payment/add_payment/business_logic/add_payment_option_cubit.dart';
@@ -48,6 +49,7 @@ Future<void> initializeDependencies(GetIt diInjector) async {
   getIt.registerFactoryParam((param1, param2)=> AddAddressCubit(diInjector(),param1 as IAddAble<AddressEntity>));
 
   /// ********* Order **********
-  getIt.registerFactoryParam((param1, param2)=> ChoosePaymentOptionCubit(param1 as ChoosePaymentOptionParams,diInjector()));
+  getIt.registerFactoryParam((param1, param2)=> ChoosePaymentOptionCubit(param1 as ChoosePaymentOptionParams,diInjector(),diInjector()));
   getIt.registerFactoryParam((param1, param2)=> AddPaymentOptionCubit(diInjector(),param1 as IAddAble<PaymentOptionEntity>));
+  getIt.registerFactory(()=> OrderHistoryCubit(diInjector()));
 }

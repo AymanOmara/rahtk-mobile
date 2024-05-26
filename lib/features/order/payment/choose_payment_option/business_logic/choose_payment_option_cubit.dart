@@ -5,6 +5,7 @@ import 'package:domain/features/order/entity/create_order_entity.dart';
 import 'package:domain/features/order/entity/payment_methods.dart';
 import 'package:domain/features/order/entity/payment_option_entity.dart';
 import 'package:domain/features/order/use_case/add_payment_use_case.dart';
+import 'package:domain/features/order/use_case/create_order_use_case.dart';
 import 'package:domain/features/order/use_case/get_payments_use_case.dart';
 import 'package:get/get.dart';
 import 'package:meta/meta.dart';
@@ -20,10 +21,12 @@ class ChoosePaymentOptionCubit extends Cubit<ChoosePaymentOptionState>
   ChoosePaymentOptionCubit(
     this.params,
     this._getPaymentsUseCase,
+    this._createOrderUseCase,
   ) : super(ChoosePaymentOptionInitial()) {
     fetchPaymentOptions();
   }
 
+  final CreateOrderUseCase _createOrderUseCase;
   int pageIndex = 0;
   final ChoosePaymentOptionParams params;
   PaymentMethods paymentMethod = PaymentMethods.debitCreditCard;
@@ -79,17 +82,32 @@ class ChoosePaymentOptionCubit extends Cubit<ChoosePaymentOptionState>
   }
 
   void checkout() {
-    var createOrderEntity = CreateOrderEntity(
+    loadingState = Loading(showSuccessWidget: true);
+    emit(ChoosePaymentOptionLoading());
+    _createOrderUseCase(_createOrderEntity()).then((value) {
+      switch (value) {
+        case Success(data: final data):
+          loadingState = LoadingSuccess(data: "data");
+          emit(ChoosePaymentOptionCreateOrderResult(success: data.success, message: data.message,orderId: data.data?.id));
+          break;
+        case Failure(exception: final exception):
+          loadingState = LoadingSuccess(data: "data");
+          emit(ChoosePaymentOptionCreateOrderResult(success: false, message: exception.message));
+          break;
+      }
+    });
+  }
+  CreateOrderEntity _createOrderEntity(){
+    return CreateOrderEntity(
       paymentId: paymentOptions.firstWhereOrNull((e) => e.selected)?.id,
       addressId: params.address.id,
       paymentMethod: paymentMethod.name,
       items: params.products
           .map(
             (e) => CreateOrderItemEntity(
-                productId: e.product.id, quantity: e.productCount),
-          )
+            productId: e.product.id, quantity: e.productCount),
+      )
           .toList(),
     );
-
   }
 }

@@ -31,6 +31,8 @@ import 'features/main/home/display/product_display.dart';
 import 'features/main/navigation_br/presentation/main_navigation.dart';
 import 'features/on_board/presentation/page/on_board_page.dart';
 import 'features/order/cart/presentation/page/cart_page.dart';
+import 'features/order/order_success/order_success_params_display.dart';
+import 'features/order/order_success/presentation/page/order_success_page.dart';
 import 'features/order/payment/choose_payment_option/display/choose_payment_option_params.dart';
 import 'features/products/favorites/presentation/page/favorite_page.dart';
 import 'features/order/payment/choose_payment_option/presentation/page/choose_payment_option_page.dart';
@@ -130,7 +132,7 @@ class AppRouter {
             create: (_) => getIt<ChoosePaymentOptionCubit>(
               param1: settings.arguments as ChoosePaymentOptionParams,
             ),
-            child: ChoosePaymentOptionPage(),
+            child: const ChoosePaymentOptionPage(),
           ),
         );
       case AppRoutes.addPayment:
@@ -140,6 +142,13 @@ class AppRouter {
               param1: settings.arguments as IAddAble<PaymentOptionEntity>,
             ),
             child: AddPaymentPage(),
+          ),
+        );
+      case AppRoutes.orderSuccess:
+        return MaterialPageRoute(
+          builder: (_) => OrderSuccessPage(
+            orderSuccessParamsDisplay:
+                settings.arguments as OrderSuccessParamsDisplay,
           ),
         );
     }

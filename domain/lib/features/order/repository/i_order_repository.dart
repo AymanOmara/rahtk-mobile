@@ -4,6 +4,8 @@ import 'package:domain/common/result.dart';
 import 'package:domain/features/order/entity/add_payment_entity.dart';
 import 'package:domain/features/order/entity/address_entity.dart';
 import 'package:domain/features/order/entity/create_address_entity.dart';
+import 'package:domain/features/order/entity/create_order_entity.dart';
+import 'package:domain/features/order/entity/order_entity.dart';
 import 'package:domain/features/order/entity/payment_option_entity.dart';
 
 abstract interface class IOrderRepository {
@@ -15,7 +17,14 @@ abstract interface class IOrderRepository {
 
   Future<Result<List<PaymentOptionEntity>, NetworkException>> getPayments();
 
-  Future<Result<Response<PaymentOptionEntity?>, NetworkException>> createPayment(
+  Future<Result<Response<PaymentOptionEntity?>, NetworkException>>
+      createPayment(
     BasePaymentEntity entity,
   );
+
+  Future<Result<Response<OrderEntity?>, NetworkException>> createOrder(
+    CreateOrderEntity entity,
+  );
+
+  Future<Result<List<OrderEntity>, NetworkException>> getOrders();
 }

@@ -4,7 +4,7 @@ import 'package:data/network/decode_able.dart';
 
 import 'order_item.dart';
 
-class OrderModel implements DecodeAble<OrderModel,Map?> {
+class OrderModel implements DecodeAble<OrderModel, Map?> {
   List<OrderItem>? items;
   AddressModel? address;
   PaymentModel? payment;
@@ -14,7 +14,20 @@ class OrderModel implements DecodeAble<OrderModel,Map?> {
 
   @override
   OrderModel fromJson(Map? json) {
-    // TODO: implement fromJson
-    throw UnimplementedError();
+    return OrderModel()
+      ..payment = PaymentModel().fromJson(json?['payment'])
+      ..address = AddressModel().fromJson(json?['address'])
+      ..id = json?['id']
+      ..date = json?['createdDate']
+      ..items = OrderItem().fromJson(json?['items'])
+      ..paymentMethod = json?['paymentMethod'];
+
   }
 }
+class OrdersModel implements DecodeAble<List<OrderModel>, List?> {
+  @override
+  List<OrderModel> fromJson(List? json) {
+    return json?.map<OrderModel>((e) => OrderModel().fromJson(e)).toList() ?? [];
+  }
+}
+

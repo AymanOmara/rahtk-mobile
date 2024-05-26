@@ -24,4 +24,5 @@ class AppRoutes {
   /// ********* order **********
   static const paymentOptions = "/paymentOptions";
   static const addPayment = "/addPayment";
+  static const orderSuccess = "/orderSuccess";
 }
