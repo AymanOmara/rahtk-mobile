@@ -4,6 +4,7 @@ import 'package:data/features/products/mapper/product_mapper.dart';
 import 'package:data/features/products/model/category_model.dart';
 import 'package:data/features/products/model/product_model.dart';
 import 'package:data/features/products/request/add_to_favorite_request.dart';
+import 'package:data/features/products/request/get_all_products_request.dart';
 import 'package:data/features/products/request/get_favorites_request.dart';
 import 'package:data/features/products/request/get_product_details.dart';
 import 'package:data/features/products/request/remove_favorite_request.dart';
@@ -37,9 +38,17 @@ class ProductRepository implements IProductRepository {
   }
 
   @override
-  Future<Result<List<ProductEntity>, NetworkException>> getProducts() {
-    // TODO: implement getProducts
-    throw UnimplementedError();
+  Future<Result<List<ProductEntity>, NetworkException>> getProducts() async{
+    var result = await _service.fetchData<List<ProductModel>>(
+      GetAllProductsRequest(),
+      data: ProductsModel(),
+    );
+    switch (result) {
+      case Success(data: final data):
+        return Success(data.data?.map((e) => e.toEntity()).toList() ?? []);
+      case Failure(exception: final exception):
+        return Failure(exception);
+    }
   }
 
   @override

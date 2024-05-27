@@ -14,6 +14,7 @@ import 'package:domain/features/order/use_case/get_address_use_case.dart';
 import 'package:domain/features/order/use_case/get_orders_use_case.dart';
 import 'package:domain/features/order/use_case/get_payments_use_case.dart';
 import 'package:domain/features/product/use_case/add_to_favorite_use_case.dart';
+import 'package:domain/features/product/use_case/get_all_products_use_case.dart';
 import 'package:domain/features/product/use_case/get_categories_use_case.dart';
 import 'package:domain/features/product/use_case/get_favorites_use_case.dart';
 import 'package:domain/features/product/use_case/get_product_details_use_case.dart';
@@ -40,6 +41,7 @@ Future<void> setupUseCaseInjector(GetIt diInjector) async {
   diInjector.registerFactory(() => AddToFavoriteUseCase(diInjector()));
   diInjector.registerFactory(() => RemoveFavoriteUseCase(diInjector()));
   diInjector.registerFactory(() => GetProductDetailsUseCase(diInjector()));
+  diInjector.registerFactory(() => GetAllProductsUseCase(diInjector()));
 
   /// ********* Order **********
   diInjector.registerFactory(()=> CreateAddressUseCase(diInjector()));
