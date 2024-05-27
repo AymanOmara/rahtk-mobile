@@ -6,6 +6,6 @@ class LogoutUseCase {
   const LogoutUseCase(this._iUserLocal);
 
   void call()  {
-    return _iUserLocal.logout();
+     _iUserLocal.logout();
   }
 }

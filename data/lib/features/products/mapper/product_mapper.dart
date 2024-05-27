@@ -21,6 +21,7 @@ extension ProductMapper on ProductModel? {
       categoryNameAr: this?.categoryNameAr ?? "",
       location: this?.location ?? "",
       deliveryDetails: this?.deliveryDetails ?? "",
+      purchaseCount:  this?.purchaseCount ?? 0,
     );
   }
 }

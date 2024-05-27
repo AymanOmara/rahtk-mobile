@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rahtk_mobile/core/helper/constants.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
+
 class TopNavigationBar extends StatelessWidget {
   const TopNavigationBar({super.key});
 
@@ -33,7 +34,21 @@ class TopNavigationBar extends StatelessWidget {
               Row(
                 children: [
                   InkWell(
-                    onTap: (){
+                    onTap: () {
+                      Navigator.of(context).pushNamed(
+                        AppRoutes.allDrugsPage,
+                      );
+                    },
+                    child: const Icon(
+                      Icons.local_hospital,
+                      color: Colors.white,
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                  ),
+                  InkWell(
+                    onTap: () {
                       Navigator.of(context).pushNamed(AppRoutes.favorites);
                     },
                     child: SvgPicture.asset(
@@ -44,7 +59,7 @@ class TopNavigationBar extends StatelessWidget {
                     width: 10,
                   ),
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       Navigator.of(context).pushNamed(AppRoutes.cart);
                     },
                     child: SvgPicture.asset(

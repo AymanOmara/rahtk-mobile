@@ -31,11 +31,13 @@ class AuthRepository implements IAuthRepository {
   Future<Result<Response<TokenEntity>, NetworkException>> login(
     String email,
     String password,
+    String fcmToken,
   ) async {
     var result = await _service.fetchData<TokenModel>(
       LoginRequest(
         email: email,
         password: password,
+        fcmToken: fcmToken,
       ),
       data: TokenModel(),
     );

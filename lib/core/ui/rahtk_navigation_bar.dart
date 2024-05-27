@@ -7,14 +7,16 @@ class RahtkNavigationBar extends StatelessWidget {
   const RahtkNavigationBar({
     super.key,
     required this.title,
+    this.height = 140
   });
 
   final String title;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 140,
+      height: height,
       width: Get.width,
       decoration: const BoxDecoration(
         color: RahtkColors.tealColor,

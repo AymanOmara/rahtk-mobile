@@ -7,7 +7,7 @@ import 'package:domain/features/auth/repositories/i_auth_repository.dart';
 class LoginUseCase{
   final IAuthRepository _repository;
   LoginUseCase(this._repository);
-  Future<Result<Response<TokenEntity>,NetworkException>> call(String email, String password) async {
-    return await _repository.login(email, password);
+  Future<Result<Response<TokenEntity>,NetworkException>> call(String email, String password,String fcmToken) async {
+    return await _repository.login(email, password,fcmToken);
   }
 }

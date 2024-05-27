@@ -126,5 +126,10 @@ Map<String, String> en = {
   "governing_law_title": "Governing Law",
   "governing_law_content": "- These terms and conditions are governed by the laws of [Your Country/State].\n- Any disputes arising from these terms will be resolved in the courts of [Your Country/State].",
   "contact_info_title": "Contact Information",
-  "contact_info_content": "- For any questions or concerns, please contact us at [Contact Information]."
+  "contact_info_content": "- For any questions or concerns, please contact us at [Contact Information].",
+  "back_to_home":"Back To Home",
+  "pharmacy":"My Pharmacy",
+  "add_periodically_reminder_note":"You can add periodically reminder to remind you to purchase the medicine",
+  "period_in_days":"Period in Days"
+
 };

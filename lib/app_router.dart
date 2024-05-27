@@ -1,4 +1,5 @@
 import 'package:domain/features/auth/entities/forget_password_entity.dart';
+import 'package:domain/features/drugs/entity/drug_entity.dart';
 import 'package:domain/features/order/entity/address_entity.dart';
 import 'package:domain/features/order/entity/payment_option_entity.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,9 @@ import 'package:rahtk_mobile/features/main/home/display/category_display.dart';
 import 'package:rahtk_mobile/features/on_board/business_logic/on_boarding_cubit.dart';
 import 'package:rahtk_mobile/features/order/payment/add_payment/business_logic/add_payment_option_cubit.dart';
 import 'package:rahtk_mobile/features/order/payment/add_payment/presentation/page/add_payment_page.dart';
+import 'package:rahtk_mobile/features/pharmacy/all_drugs/business_logic/all_drugs_cubit.dart';
+import 'package:rahtk_mobile/features/pharmacy/drug_details/business_logic/drug_details_cubit.dart';
+import 'package:rahtk_mobile/features/pharmacy/drug_details/presentation/page/drug_details_page.dart';
 import 'package:rahtk_mobile/features/products/category_products/presentation/page/category_products_page.dart';
 import 'package:rahtk_mobile/features/order/payment/choose_payment_option/business_logic/choose_payment_option_cubit.dart';
 import 'package:rahtk_mobile/features/products/product_details/business_logic/product_details_cubit.dart';
@@ -34,6 +38,7 @@ import 'features/order/cart/presentation/page/cart_page.dart';
 import 'features/order/order_success/order_success_params_display.dart';
 import 'features/order/order_success/presentation/page/order_success_page.dart';
 import 'features/order/payment/choose_payment_option/display/choose_payment_option_params.dart';
+import 'features/pharmacy/all_drugs/presentation/page/all_drugs_page.dart';
 import 'features/products/favorites/presentation/page/favorite_page.dart';
 import 'features/order/payment/choose_payment_option/presentation/page/choose_payment_option_page.dart';
 import 'features/products/product_details/presentation/page/product_details_page.dart';
@@ -154,7 +159,23 @@ class AppRouter {
         );
       case AppRoutes.termsConditions:
         return MaterialPageRoute(
-          builder: (_) =>const TermsConditionsPage(),
+          builder: (_) => const TermsConditionsPage(),
+        );
+      case AppRoutes.allDrugsPage:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<AllDrugsCubit>(),
+            child: const AllDrugsPage(),
+          ),
+        );
+      case AppRoutes.drugDetails:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<DrugDetailsCubit>(
+              param1: settings.arguments as DrugEntity,
+            ),
+            child: DrugDetailsPage(),
+          ),
         );
     }
     return null;

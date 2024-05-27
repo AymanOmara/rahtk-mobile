@@ -1,6 +1,6 @@
 library common;
 
 class Common {
-  static const baseUrl = "https://localhost:7134/";
-  static const payMobApiKey = "ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0o5LmV5SmpiR0Z6Y3lJNklrMWxjbU5vWVc1MElpd2ljSEp2Wm1sc1pWOXdheUk2T1RjNE16UTRMQ0p1WVcxbElqb2lhVzVwZEdsaGJDSjkucFRjZXdFTDl4dnk2UTUzSlhZdHU1SHcyTllaNFFYTEJ6ZnhCYkZEei1GWGZ0NzNDVWZJWWlKNHBZeDFQRWVNZ2lOc3Z0WjB1dnluVWs4VHVVbk94T2c=";
+  //"http://10.0.2.2:5237";
+  static const baseUrl = "https://10.0.2.2:7134/";
 }

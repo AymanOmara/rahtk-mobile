@@ -4,6 +4,8 @@ import 'package:domain/features/auth/use_case/forget_password_use_case.dart';
 import 'package:domain/features/auth/use_case/login_use_case.dart';
 import 'package:domain/features/auth/use_case/registration_use_case.dart';
 import 'package:domain/features/auth/use_case/verify_otp_use_case.dart';
+import 'package:domain/features/drugs/use_case/add_periodically_reminder_use_case.dart';
+import 'package:domain/features/drugs/use_case/get_drugs_use_case.dart';
 import 'package:domain/features/on_boarding/use_case/change_first_launch_use_case.dart';
 import 'package:domain/features/order/use_case/add_payment_use_case.dart';
 import 'package:domain/features/order/use_case/create_address_use_case.dart';
@@ -51,5 +53,9 @@ Future<void> setupUseCaseInjector(GetIt diInjector) async {
   diInjector.registerFactory(()=> GetProfileInfoUseCase(diInjector()));
   diInjector.registerFactory(()=> LogoutUseCase(diInjector()));
   diInjector.registerFactory(()=> ChangeLanguageUseCase(diInjector()));
+
+  /// ********* Drugs **********
+  diInjector.registerFactory(()=> GetDrugsUseCase(diInjector()));
+  diInjector.registerFactory(()=> AddPeriodicallyReminderUseCase(diInjector()));
 
 }

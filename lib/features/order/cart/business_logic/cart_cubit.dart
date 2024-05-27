@@ -58,7 +58,10 @@ class CartCubit extends Cubit<CartState> implements IAddAble<AddressEntity> {
     address = item;
     emit(CartAddressAdded());
   }
-
+  void clearCartProduct(){
+    products.clear();
+    emit(CartProductCleared());
+  }
   void fetchAddresses() {
     loadingState = Loading(showSuccessWidget: true);
     emit(CartLoading());

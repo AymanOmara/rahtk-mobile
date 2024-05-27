@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:di/di.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -10,6 +11,7 @@ import 'package:rahtk_mobile/core/helper/constants.dart';
 import 'package:rahtk_mobile/features/app/app_cubit.dart';
 
 import 'app_router.dart';
+import 'core/helper/fire_base_helper.dart';
 import 'core/helper/injector.dart';
 import 'core/translation_service/translation_service.dart';
 import 'core/ui/theme/light_mode.dart';
@@ -21,12 +23,24 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DI.registerDependencies();
   await initializeDependencies(diInjector);
+  await setUpFirebase();
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  static void restartApp(BuildContext context) {
+    context.findAncestorStateOfType<_MyAppState>()?.restartApp();
+  }
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  Key key = UniqueKey();
 
   @override
   Widget build(BuildContext context) {
@@ -35,10 +49,8 @@ class MyApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       child: MultiBlocProvider(
+        key: key,
         providers: [
-          BlocProvider(
-            create: (_) => getIt<AppCubit>(),
-          ),
           BlocProvider(
             create: (_) => getIt<RahtkBottomNavigationBarCubit>(),
           ),
@@ -49,39 +61,48 @@ class MyApp extends StatelessWidget {
             create: (_) => getIt<CartCubit>(),
           ),
         ],
-        child: BlocBuilder<AppCubit, AppState>(
-          builder: (context, state) {
-            AppCubit cubit = BlocProvider.of(context);
-            return GetMaterialApp(
-              title: 'Flutter Demo',
-              theme: lightTheme,
-              debugShowCheckedModeBanner: false,
-              themeMode: ThemeMode.light,
-              onGenerateRoute: AppRouter().generateRouter,
-              translations: TranslationService(),
-              supportedLocales: const <Locale>[
-                Locale('en'),
-                Locale('ar'),
-              ],
-              locale: Get.locale ??
-                  Locale(
-                    cubit.userStatusEntity?.locale ?? 'en',
-                  ),
-              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-                GlobalCupertinoLocalizations.delegate,
-              ],
-              initialRoute: cubit.userStatusEntity?.login == true
-                  ? AppRoutes.home
-                  : cubit.userStatusEntity?.firstRun == true
-                      ? AppRoutes.onBoarding
-                      : AppRoutes.login,
-            );
-          },
+        child: BlocProvider(
+          create: (context) => getIt<AppCubit>(),
+          child: BlocBuilder<AppCubit, AppState>(
+            builder: (context, state) {
+              AppCubit cubit = BlocProvider.of(context);
+              return GetMaterialApp(
+                title: 'Flutter Demo',
+                theme: lightTheme,
+                debugShowCheckedModeBanner: false,
+                themeMode: ThemeMode.light,
+                onGenerateRoute: AppRouter().generateRouter,
+                translations: TranslationService(),
+                supportedLocales: const <Locale>[
+                  Locale('en'),
+                  Locale('ar'),
+                ],
+                locale: Get.locale ??
+                    Locale(
+                      cubit.userStatusEntity?.locale ?? 'en',
+                    ),
+                localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                ],
+                initialRoute: cubit.userStatusEntity?.login == true
+                    ? AppRoutes.home
+                    : cubit.userStatusEntity?.firstRun == true
+                        ? AppRoutes.onBoarding
+                        : AppRoutes.login,
+              );
+            },
+          ),
         ),
       ),
     );
+  }
+
+  void restartApp() {
+    setState(() {
+      key = UniqueKey();
+    });
   }
 }
 

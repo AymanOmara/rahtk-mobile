@@ -19,6 +19,7 @@ class ProductDisplay {
   final String categoryNameEn;
   final String location;
   final String deliveryDetails;
+  final int purchaseCount;
 
   ProductDisplay({
     required this.id,
@@ -38,6 +39,7 @@ class ProductDisplay {
     required this.categoryNameEn,
     required this.categoryNameAr,
     required this.deliveryDetails,
+    required this.purchaseCount,
   });
 
   String get localizedName =>
@@ -75,6 +77,7 @@ extension ProductDisplayMapper on ProductEntity {
       location: location,
       priceType: priceType,
       deliveryDetails: deliveryDetails,
+      purchaseCount: purchaseCount,
     );
   }
 }

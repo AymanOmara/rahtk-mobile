@@ -13,10 +13,10 @@ class LoginCubit extends Cubit<LoginState> {
   String email = "";
   String password = "";
 
-  void login() {
+  void login(String fcmToken) {
     loadingState = Idle();
     emit(LoginLoading());
-    _loginUseCase(email, password).then((value) {
+    _loginUseCase(email, password,fcmToken).then((value) {
       switch (value) {
         case Success(data: final data):
           emit(LoginResult(success: data.success,message: data.message));

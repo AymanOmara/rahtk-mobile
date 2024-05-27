@@ -52,7 +52,7 @@ class NewArrivalProducts extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           child: Row(
             children:
-                cubit.products.map((e) => ProductWidget(product: e)).toList(),
+                cubit.products.reversed.take(3).map((e) => ProductWidget(product: e)).toList(),
           ),
         ),
         const SizedBox(

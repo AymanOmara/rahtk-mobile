@@ -16,3 +16,5 @@ final class CartIncrement extends CartState {}
 final class CartDecrement extends CartState {}
 
 final class CartAddressAdded extends CartState {}
+
+final class CartProductCleared extends CartState {}

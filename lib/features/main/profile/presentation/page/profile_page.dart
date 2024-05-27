@@ -4,9 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rahtk_mobile/core/helper/constants.dart';
+import 'package:rahtk_mobile/core/helper/injector.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
 import 'package:rahtk_mobile/features/main/profile/business_logic/profile_cubit.dart';
 import 'package:rahtk_mobile/features/main/profile/presentation/widgets/profile_item_widget.dart';
+import 'package:rahtk_mobile/main.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
@@ -168,8 +170,9 @@ class ProfilePage extends StatelessWidget {
                           ),
                           ProfileItemWidget(
                             dividerVisible: false,
-                            onTap: () {
+                            onTap: () async{
                               cubit.logout();
+                              MyApp.restartApp(context);
                               Navigator.pushNamedAndRemoveUntil(context, AppRoutes.login, (Route<dynamic> route) => false);
                             },
                             title: "logout".tr,

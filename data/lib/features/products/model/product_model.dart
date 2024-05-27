@@ -28,7 +28,7 @@ class ProductModel implements DecodeAble<ProductModel, Map?> {
   String? categoryNameAr;
   String? location;
   String? deliveryDetails;
-
+  int? purchaseCount;
   @override
   ProductModel fromJson(Map? json) {
     return ProductModel()
@@ -48,6 +48,7 @@ class ProductModel implements DecodeAble<ProductModel, Map?> {
       ..condition = json?['condition']
       ..location = json?['location']
       ..deliveryDetails = json?['deliveryDetails']
+      ..purchaseCount = json?['purchasementCount']
       ..categoryId = json?['categoryId'];
   }
 }

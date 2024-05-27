@@ -22,8 +22,12 @@ class AppRoutes {
   static const cart = "/cart";
   static const addAddress = "/addAddress";
 
-  /// ********* order **********
+  /// ********* Order **********
   static const paymentOptions = "/paymentOptions";
   static const addPayment = "/addPayment";
   static const orderSuccess = "/orderSuccess";
+
+  /// ********* Drug **********
+  static const allDrugsPage = "/allDrugsPage";
+  static const drugDetails = "/drugDetails";
 }

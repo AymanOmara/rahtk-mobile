@@ -16,6 +16,8 @@ class ProductEntity {
   final String categoryNameEn;
   final String location;
   final String deliveryDetails;
+  final int purchaseCount;
+
   const ProductEntity({
     required this.id,
     required this.arabicName,
@@ -34,5 +36,6 @@ class ProductEntity {
     required this.priceType,
     required this.location,
     required this.deliveryDetails,
+    required this.purchaseCount,
   });
 }

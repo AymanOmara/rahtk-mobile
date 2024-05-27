@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "954629909845",
+    "project_id": "rahtk-ecommerce-app",
+    "storage_bucket": "rahtk-ecommerce-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:954629909845:android:8fbdc8c3d2179c49ad53dc",
+        "android_client_info": {
+          "package_name": "com.example.rahtk_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPgPESlBSRSCDACtmBX7s-qkppikHd-TM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

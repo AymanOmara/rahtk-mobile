@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -110,9 +111,10 @@ class LoginPage extends StatelessWidget {
                                     vertical: 15,
                                     horizontal: Get.width * 0.5 - 40,
                                   ),
-                                  onPressed: () {
+                                  onPressed: () async{
                                     if (_formState.currentState!.validate()) {
-                                      cubit.login();
+                                      var fcmToken = await FirebaseMessaging.instance.getToken();
+                                      cubit.login(fcmToken ?? "");
                                     }
                                   },
                                   child: Text("login".tr),
