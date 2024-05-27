@@ -125,10 +125,12 @@ class BrowsePage extends StatelessWidget {
                   Expanded(
                     child: LoadingWidget(
                       loadingState: cubit.loadingState,
-                      successWidget: Wrap(
-                        children: cubit.filteredProducts
-                            .map((e) => ProductWidget(product: e))
-                            .toList(),
+                      successWidget: SingleChildScrollView(
+                        child: Wrap(
+                          children: cubit.filteredProducts
+                              .map((e) => ProductWidget(product: e))
+                              .toList(),
+                        ),
                       ),
                       onRetry: () {
                         cubit.fetchProducts();
