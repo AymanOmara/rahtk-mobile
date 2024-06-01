@@ -3,7 +3,7 @@ import 'package:domain/common/result.dart';
 import 'package:domain/features/profile/entity/profile_entity.dart';
 import 'package:domain/features/profile/use_case/change_language_use_case.dart';
 import 'package:domain/features/profile/use_case/get_profile_info_use_case.dart';
-import 'package:domain/features/profile/use_case/log_out_use_case.dart';
+import 'package:domain/features/profile/use_case/logout_use_case.dart';
 import 'package:meta/meta.dart';
 import 'package:rahtk_mobile/core/display/loading_states.dart';
 
@@ -47,6 +47,19 @@ class ProfileCubit extends Cubit<ProfileState> {
   }
 
   void logout() {
-    _logoutUseCase();
+    loadingState = Loading();
+    emit(ProfileLoading());
+    _logoutUseCase().then((value){
+      switch(value){
+        case Success(data: final data):
+          loadingState = LoadingSuccess(data: data);
+          emit(ProfileLogoutResult(message: data.message, success: true));
+          break;
+        case Failure(exception: final exception):
+          loadingState = LoadingException(exception);
+          emit(ProfileLogoutResult(message: exception.message, success: false));
+          break;
+      }
+    });
   }
 }

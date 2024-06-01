@@ -9,12 +9,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:rahtk_mobile/core/helper/constants.dart';
 import 'package:rahtk_mobile/features/app/app_cubit.dart';
+import 'package:rahtk_mobile/firebase_options.dart';
 
 import 'app_router.dart';
 import 'core/helper/fire_base_helper.dart';
 import 'core/helper/injector.dart';
 import 'core/translation_service/translation_service.dart';
 import 'core/ui/theme/light_mode.dart';
+import 'features/main/bar_icons/business_logic/bar_icons_cubit.dart';
 import 'features/main/navigation_br/business_logic/rahtk_bottom_navigation_bar_cubit.dart';
 import 'features/order/cart/business_logic/cart_cubit.dart';
 import 'features/products/favorites/business_logic/favorites_cubit.dart';
@@ -23,7 +25,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DI.registerDependencies();
   await initializeDependencies(diInjector);
-  await setUpFirebase();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await FirebaseNotifications().initNotification();
   HttpOverrides.global = MyHttpOverrides();
   runApp(const MyApp());
 }
@@ -59,6 +64,9 @@ class _MyAppState extends State<MyApp> {
           ),
           BlocProvider(
             create: (_) => getIt<CartCubit>(),
+          ),
+          BlocProvider(
+            create: (_) => getIt<BarIconsCubit>(),
           ),
         ],
         child: BlocProvider(

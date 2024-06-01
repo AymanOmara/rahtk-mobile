@@ -13,6 +13,8 @@ import 'package:rahtk_mobile/features/auth/login/presentation/page/login_page.da
 import 'package:rahtk_mobile/features/auth/registration/business_logic/registration_cubit.dart';
 import 'package:rahtk_mobile/features/auth/verify_otp/presentation/page/verify_otp_page.dart';
 import 'package:rahtk_mobile/features/main/home/display/category_display.dart';
+import 'package:rahtk_mobile/features/notifications/business_logic/notifications_cubit.dart';
+import 'package:rahtk_mobile/features/notifications/presentation/page/notifications_page.dart';
 import 'package:rahtk_mobile/features/on_board/business_logic/on_boarding_cubit.dart';
 import 'package:rahtk_mobile/features/order/payment/add_payment/business_logic/add_payment_option_cubit.dart';
 import 'package:rahtk_mobile/features/order/payment/add_payment/presentation/page/add_payment_page.dart';
@@ -174,7 +176,14 @@ class AppRouter {
             create: (_) => getIt<DrugDetailsCubit>(
               param1: settings.arguments as DrugEntity,
             ),
-            child: DrugDetailsPage(),
+            child: const DrugDetailsPage(),
+          ),
+        );
+      case AppRoutes.notifications:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<NotificationsCubit>(),
+            child:const NotificationsPage(),
           ),
         );
     }

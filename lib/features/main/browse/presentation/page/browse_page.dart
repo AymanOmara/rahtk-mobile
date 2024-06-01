@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:rahtk_mobile/core/helper/constants.dart';
 import 'package:rahtk_mobile/core/ui/loading/loading_widget.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
+import 'package:rahtk_mobile/features/main/bar_icons/presentation/bar_icons_widget.dart';
 import 'package:rahtk_mobile/features/main/browse/business_logic/browse_cubit.dart';
 import 'package:get/get.dart';
 import 'package:rahtk_mobile/features/main/home/presentation/widgets/product_widget.dart';
@@ -51,34 +52,8 @@ class BrowsePage extends StatelessWidget {
                                 fontWeight: FontWeight.w700,
                               ),
                             ),
-                            Row(
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.of(context)
-                                        .pushNamed(AppRoutes.favorites);
-                                  },
-                                  child: SvgPicture.asset(
-                                    "assets/images/favorite_ic.svg",
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 10,
-                                ),
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.of(context)
-                                        .pushNamed(AppRoutes.cart);
-                                  },
-                                  child: SvgPicture.asset(
-                                    "assets/images/cart_ic.svg",
-                                    colorFilter: const ColorFilter.mode(
-                                      Colors.white,
-                                      BlendMode.srcIn,
-                                    ),
-                                  ),
-                                ),
-                              ],
+                            const BarIconsWidget(
+                              isNotificationVisible: false,
                             ),
                           ],
                         ),

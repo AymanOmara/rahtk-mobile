@@ -45,7 +45,9 @@ class LoadingWidget extends StatelessWidget {
           ),
         ],
         if (loadingState is LoadingSuccess && !_isDataNotEmpty(data))
-          _handleSuccessWidget(data),
+          Center(
+            child: _handleSuccessWidget(data),
+          ),
         if (loadingState is LoadingException)
           _buildErrorWidget((loadingState as LoadingException).exception),
       ],
@@ -90,8 +92,11 @@ class EmptyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-
+        Text(
+          "no_data_found".tr,
+        ),
       ],
     );
   }

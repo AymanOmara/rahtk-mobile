@@ -11,6 +11,9 @@ abstract interface class IUserLocal {
 
   void setRefreshToken(String refreshToken);
 
+  void setFcmToken(String fcmToken);
+  String get fcmToken;
+
   bool get firstRun;
 
   void setFirstRun();

@@ -113,8 +113,7 @@ class LoginPage extends StatelessWidget {
                                   ),
                                   onPressed: () async{
                                     if (_formState.currentState!.validate()) {
-                                      var fcmToken = await FirebaseMessaging.instance.getToken();
-                                      cubit.login(fcmToken ?? "");
+                                      cubit.login();
                                     }
                                   },
                                   child: Text("login".tr),

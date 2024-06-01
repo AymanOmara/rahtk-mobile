@@ -1,3 +1,4 @@
+import 'package:common/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,7 @@ import 'package:rahtk_mobile/core/helper/constants.dart';
 import 'package:rahtk_mobile/core/ui/loading/loading_widget.dart';
 import 'package:rahtk_mobile/core/ui/rahtk_navigation_bar.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
+import 'package:rahtk_mobile/features/main/bar_icons/business_logic/bar_icons_cubit.dart';
 import 'package:rahtk_mobile/features/order/cart/business_logic/cart_cubit.dart';
 import 'package:rahtk_mobile/features/order/cart/presentation/widgets/add_new_address_widget.dart';
 import 'package:rahtk_mobile/features/order/cart/presentation/widgets/cart_item_widget.dart';
@@ -17,9 +19,16 @@ class CartPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<CartCubit, CartState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        CartCubit cartCubit = BlocProvider.of(context);
+        BarIconsCubit barIconsCubit = BlocProvider.of(context);
+        barIconsCubit.updateCartProducts(cartCubit.products.map((e)=>e.product).toList());
+      },
       builder: (context, state) {
         CartCubit cubit = BlocProvider.of(context);
+        BarIconsCubit barIconsCubit = BlocProvider.of(context);
+        barIconsCubit.updateCartProducts(cubit.products.map((e)=>e.product).toList());
+        Logger.D("cart state $state");
         return Scaffold(
           backgroundColor: RahtkColors.aliceBlue,
           body: Column(

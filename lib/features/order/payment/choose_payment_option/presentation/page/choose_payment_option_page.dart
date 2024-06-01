@@ -8,6 +8,7 @@ import 'package:rahtk_mobile/core/ui/loading/loading_widget.dart';
 import 'package:rahtk_mobile/core/ui/rahtk_navigation_bar.dart';
 import 'package:get/get.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
+import 'package:rahtk_mobile/features/main/bar_icons/business_logic/bar_icons_cubit.dart';
 import 'package:rahtk_mobile/features/on_board/presentation/widgets/dotted_widget.dart';
 import 'package:rahtk_mobile/features/order/cart/business_logic/cart_cubit.dart';
 import 'package:rahtk_mobile/features/order/cart/presentation/widgets/products_details.dart';
@@ -30,6 +31,7 @@ class ChoosePaymentOptionPage extends StatelessWidget {
             ChoosePaymentOptionCubit cubit = BlocProvider.of(context);
             CartCubit cartCubit = BlocProvider.of(context);
             cartCubit.clearCartProduct();
+            BlocProvider.of<BarIconsCubit>(context).updateCartProducts([]);
             Navigator.of(context).pushNamed(
               AppRoutes.orderSuccess,
               arguments: OrderSuccessParamsDisplay(

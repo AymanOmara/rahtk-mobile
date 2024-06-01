@@ -50,6 +50,7 @@ class BaseApi implements IAPIService {
         );
       }
     } on FormatException catch (error) {
+      Logger.D(tag: "a7a",error.message);
       return Failure(JsonParsingException(error.message));
     } on DioException catch (e) {
       Logger.D(e.stackTrace);
@@ -59,6 +60,7 @@ class BaseApi implements IAPIService {
     } on TypeError catch (e) {
       Logger.D(e.stackTrace);
       Logger.D(e);
+      Logger.D(tag: "a7a",e.stackTrace);
       return Failure(GeneralException());
     }
   }

@@ -13,6 +13,7 @@ class AppRoutes {
 
   /// ********* Misc **********
   static const onBoarding = "/onBoarding";
+  static const notifications = "/notifications";
   static const termsConditions = "/termsConditions";
 
   /// ********* Product **********

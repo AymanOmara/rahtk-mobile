@@ -21,7 +21,7 @@ Future<void> setupRepositoryInjector(GetIt diInjector) async {
   diInjector.registerSingleton<IOrderRepository>(OrderRepository(diInjector()));
 
   /// ********* Profile **********
-  diInjector.registerSingleton<IProfileRepository>(ProfileRepository(diInjector()));
+  diInjector.registerSingleton<IProfileRepository>(ProfileRepository(diInjector(),diInjector()));
 
   /// ********* Drugs **********
   diInjector.registerSingleton<IDrugsRepository>(DrugsRepository(diInjector()));

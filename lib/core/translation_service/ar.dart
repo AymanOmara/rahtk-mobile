@@ -130,5 +130,7 @@ Map<String, String> ar = {
   "back_to_home":"العودة للرئيسية",
   "pharmacy":"صيدليتي",
   "add_periodically_reminder_note":"يمكنك إضافة تذكير دوري لتذكيرك بشراء الدواء",
-  "period_in_days":"الفترة بالأيام"
+  "period_in_days":"الفترة بالأيام",
+  "no_data_found":"لا توجد بيانات لعرضها",
+  "notifications":"الاشعارات"
 };

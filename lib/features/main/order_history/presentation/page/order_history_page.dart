@@ -1,11 +1,10 @@
 import 'package:di/di.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:rahtk_mobile/core/helper/constants.dart';
 import 'package:rahtk_mobile/core/ui/loading/loading_widget.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
+import 'package:rahtk_mobile/features/main/bar_icons/presentation/bar_icons_widget.dart';
 import 'package:rahtk_mobile/features/main/order_history/business_logic/order_history_cubit.dart';
 import 'package:rahtk_mobile/features/main/order_history/presentation/widgets/order_history_widget.dart';
 
@@ -48,33 +47,9 @@ class OrderHistoryPage extends StatelessWidget {
                               fontWeight: FontWeight.w700,
                             ),
                           ),
-                          Row(
-                            children: [
-                              InkWell(
-                                onTap: (){
-                                  Navigator.of(context).pushNamed(AppRoutes.favorites);
-                                },
-                                child: SvgPicture.asset(
-                                  "assets/images/favorite_ic.svg",
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              InkWell(
-                                onTap: (){
-                                  Navigator.of(context).pushNamed(AppRoutes.cart);
-                                },
-                                child: SvgPicture.asset(
-                                  "assets/images/cart_ic.svg",
-                                  colorFilter: const ColorFilter.mode(
-                                    Colors.white,
-                                    BlendMode.srcIn,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
+                          const BarIconsWidget(
+                            isNotificationVisible: false,
+                          )
                         ],
                       ),
                       const SizedBox(

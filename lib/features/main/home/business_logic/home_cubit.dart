@@ -17,6 +17,7 @@ class HomeCubit extends Cubit<HomeState> {
   LoadingState loadingState = Loading();
   List<CategoryDisplay> categories = [];
   List<ProductDisplay> products = [];
+  List<ProductDisplay> popularProducts = [];
 
   void fetchCategories() {
     loadingState = Loading();
@@ -27,6 +28,8 @@ class HomeCubit extends Cubit<HomeState> {
           categories = data.map((e) => e.toDisplay()).toList();
           loadingState = LoadingSuccess(data: data);
           products = categories.map((e)=>e.products).reduce((value, element) => value + element).toList();
+          popularProducts = products;
+          popularProducts.sort((a,b)=>b.purchaseCount.compareTo(a.purchaseCount));
           emit(HomeResult());
           break;
         case Failure(exception: final exception):

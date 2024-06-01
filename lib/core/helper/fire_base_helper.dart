@@ -1,164 +1,100 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
-import 'package:firebase_core/firebase_core.dart';
+import 'package:common/logger.dart';
+import 'package:domain/locale_storage/i_user_local.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:rahtk_mobile/firebase_options.dart';
+import 'package:rahtk_mobile/core/helper/injector.dart';
 
-const AndroidNotificationChannel channel = AndroidNotificationChannel(
-  'high_importance_channel', // id
-  'High Importance Notifications', // name
-  description: 'This channel is used for important notifications.', // description
-  importance: Importance.high,
-);
+class FirebaseNotifications {
+  final _firebaseMessaging = FirebaseMessaging.instance;
+  static var notificationStreamController = StreamController<int>.broadcast();
+  final _androidChannel = const AndroidNotificationChannel(
+    'high_importance_channel',
+    'High Importance Notification',
+    description: 'This channel is used for important notifications',
+    importance: Importance.high,
+  );
+  final _localNotification = FlutterLocalNotificationsPlugin();
 
-class FirebaseHelper {
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-  final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-  FlutterLocalNotificationsPlugin();
-
-  FirebaseHelper() {
-    const AndroidInitializationSettings initializationSettingsAndroid =
-    AndroidInitializationSettings('@mipmap/ic_launcher');
-    const InitializationSettings initializationSettings =
-    InitializationSettings(
-      android: initializationSettingsAndroid,
-    );
-
-    flutterLocalNotificationsPlugin.initialize(initializationSettings);
-
-    // Create the notification channel
-    flutterLocalNotificationsPlugin
-        .resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()
-        ?.createNotificationChannel(channel);
+  void handleMessage(RemoteMessage? message) {
+    if (message == null) return;
   }
 
-  void pushNotificationPermission() async {
-    NotificationSettings settings = await messaging.requestPermission(
+  Future<void> initLocalNotification() async {
+    const AndroidInitializationSettings android =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+    const InitializationSettings settings = InitializationSettings(
+      android: android,
+    );
+
+    final platform = _localNotification.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
+    await platform?.createNotificationChannel(_androidChannel);
+  }
+
+  Future<void> initPushNotification() async {
+    await FirebaseMessaging.instance
+        .setForegroundNotificationPresentationOptions(
+      sound: true,
       alert: true,
       badge: true,
-      sound: true,
-      provisional: false,
     );
-    if (settings.authorizationStatus == AuthorizationStatus.authorized) {
-      debugPrint('User granted permission');
-    } else if (settings.authorizationStatus ==
-        AuthorizationStatus.provisional) {
-      debugPrint('User granted provisional permission');
-    } else {
-      debugPrint('User declined or has not accepted permission');
-    }
-    FirebaseMessaging.instance.getToken().then((value) {
-      debugPrint("Firebase token ${value}");
-      saveToken(value ?? "");
-    });
-  }
+    FirebaseMessaging.instance.getInitialMessage().then(handleMessage);
+    FirebaseMessaging.onMessageOpenedApp.listen(handleMessage);
+    FirebaseMessaging.onBackgroundMessage(handleBackgroundMessage);
 
-  void onMessagingListen() {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-      if (kDebugMode) {
-        print('Handling a foreground message: ${message.messageId}');
-        print('Message data: ${message.data}');
-        print('Message notification: ${message.notification?.title}');
-        print('Message notification: ${message.notification?.body}');
-      }
-
-      RemoteNotification? notification = message.notification;
-      AndroidNotification? android = message.notification?.android;
-
-      if (notification != null && android != null) {
-        flutterLocalNotificationsPlugin.show(
-          notification.hashCode,
-          notification.title,
-          notification.body,
+      Logger.D("Title: ${message.notification?.title ?? 'No Title'}");
+      Logger.D("Body: ${message.notification?.body ?? 'No Body'}");
+      notificationStreamController.sink.add(1);
+      if (message.notification != null) {
+        _localNotification.show(
+          message.notification!.hashCode,
+          message.notification!.title ?? 'No Title',
+          message.notification!.body ?? 'No Body',
           NotificationDetails(
             android: AndroidNotificationDetails(
-              channel.id,
-              channel.name,
+              _androidChannel.id,
+              _androidChannel.name,
+              channelDescription: _androidChannel.description,
               icon: '@mipmap/ic_launcher',
             ),
           ),
+          payload: jsonEncode(message.toMap()),
         );
       }
     });
   }
 
-  void handelOnBackgroundMessage() {
-    FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-  }
-
-  static Future<void> _firebaseMessagingBackgroundHandler(
-      RemoteMessage message) async {
-    await Firebase.initializeApp();
-    if (kDebugMode) {
-      print("Handling a background message: ${message.messageId}");
-      print('Message data: ${message.data}');
-      print('Message notification: ${message.notification?.title}');
-      print('Message notification: ${message.notification?.body}');
+  Future<void> initNotification() async {
+    await _firebaseMessaging.requestPermission();
+    try{
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        _firebaseMessaging.getToken().then((token) async {
+          Logger.D("fcm token $token");
+          IUserLocal userLocal = getIt<IUserLocal>();
+          userLocal.setFcmToken(token ?? "");
+          await initPushNotification();
+          await initLocalNotification();
+        }).catchError((error) {
+          Logger.D("error$error");
+        });
+      } else {
+        Logger.D("not connected");
+      }
+    } on SocketException catch (e) {
+      Logger.D("not connected ${e.message}");
     }
-
-    RemoteNotification? notification = message.notification;
-    AndroidNotification? android = message.notification?.android;
-
-    if (notification != null && android != null) {
-      const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('@mipmap/ic_launcher');
-      const InitializationSettings initializationSettings =
-      InitializationSettings(
-        android: initializationSettingsAndroid,
-      );
-      final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
-      flutterLocalNotificationsPlugin.initialize(initializationSettings);
-      flutterLocalNotificationsPlugin.show(
-        notification.hashCode,
-        notification.title,
-        notification.body,
-        const NotificationDetails(
-          android: AndroidNotificationDetails(
-            "",
-            "",
-            icon: '@mipmap/ic_launcher',
-          ),
-        ),
-      );
-    }
-  }
-
-  void getNotificationData() {
-    // messageStreamController.listen((message) {
-    //   String lastMessage = "";
-    //   if (message?.notification != null) {
-    //     lastMessage = 'Received a notification message:'
-    //         '\nTitle=${message.notification?.title},'
-    //         '\nBody=${message.notification?.body},'
-    //         '\nData=${message.data}';
-    //   } else {
-    //     lastMessage = 'Received a data message: ${message.data}';
-    //   }
-    // });
   }
 }
 
-void saveToken(String token) async {
-  // await prefs.setString(Shared.firebaseToken, token);
-}
-
-Future<void> setUpFirebase() async {
-  try {
-    final result = await InternetAddress.lookup('google.com');
-    if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
-      await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
-      FirebaseHelper firebaseHelper = FirebaseHelper();
-      firebaseHelper.pushNotificationPermission();
-      firebaseHelper.onMessagingListen();
-      firebaseHelper.handelOnBackgroundMessage();
-      firebaseHelper.getNotificationData();
-    }
-  } on SocketException catch (_) {
-    print('not connected');
+Future<void> handleBackgroundMessage(RemoteMessage? message) async {
+  if (message != null && message.notification != null) {
+    Logger.D("Title: ${message.notification!.title ?? 'No Title'}");
+    Logger.D("Body: ${message.notification!.body ?? 'No Body'}");
   }
 }

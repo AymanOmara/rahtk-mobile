@@ -47,6 +47,7 @@ class AddAddressPage extends StatelessWidget {
                               onTap: () async {
                                 bool? serviceEnabled;
                                 LocationPermission? permission;
+
                                 serviceEnabled = await Geolocator.isLocationServiceEnabled();
                                 if (!serviceEnabled) {
                                   Get.snackbar(
@@ -58,13 +59,13 @@ class AddAddressPage extends StatelessWidget {
                                 permission = await Geolocator.checkPermission();
                                 if (permission == LocationPermission.denied) {
                                   permission = await Geolocator.requestPermission();
-                                  if (permission != LocationPermission.always || permission != LocationPermission.whileInUse) {
-                                    Get.snackbar(
-                                      "error".tr,
-                                      "location_disabled".tr,
-                                    );
-                                    return;
-                                  }
+                                }
+                                if (permission != LocationPermission.always && permission != LocationPermission.whileInUse) {
+                                  Get.snackbar(
+                                    "error".tr,
+                                    "location_disabled".tr,
+                                  );
+                                  return;
                                 }
                                 Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
                                 List<Placemark> placeMarks = await placemarkFromCoordinates(position.latitude, position.longitude);

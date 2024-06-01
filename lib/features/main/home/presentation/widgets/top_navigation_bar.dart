@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rahtk_mobile/core/helper/constants.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
+import 'package:rahtk_mobile/features/main/bar_icons/presentation/bar_icons_widget.dart';
 
 class TopNavigationBar extends StatelessWidget {
   const TopNavigationBar({super.key});
@@ -31,46 +32,8 @@ class TopNavigationBar extends StatelessWidget {
                   fontWeight: FontWeight.w700,
                 ),
               ),
-              Row(
-                children: [
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(
-                        AppRoutes.allDrugsPage,
-                      );
-                    },
-                    child: const Icon(
-                      Icons.local_hospital,
-                      color: Colors.white,
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(AppRoutes.favorites);
-                    },
-                    child: SvgPicture.asset(
-                      "assets/images/favorite_ic.svg",
-                    ),
-                  ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(AppRoutes.cart);
-                    },
-                    child: SvgPicture.asset(
-                      "assets/images/cart_ic.svg",
-                      colorFilter: const ColorFilter.mode(
-                        Colors.white,
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                  ),
-                ],
+              const BarIconsWidget(
+                isNotificationVisible: false,
               ),
             ],
           ),

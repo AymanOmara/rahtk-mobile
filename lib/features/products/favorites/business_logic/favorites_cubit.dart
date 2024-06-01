@@ -27,7 +27,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
       switch (value) {
         case Success(data: final data):
           loading = LoadingSuccess(data: data);
-          products.addAll(data.toDisplayList());
+          products = data.toDisplayList();
           emit(FavoritesResult());
           break;
         case Failure(exception: final exception):
@@ -41,7 +41,7 @@ class FavoritesCubit extends Cubit<FavoritesState> {
   void addFavorite(ProductDisplay product) {
     products.add(product);
     loading = LoadingSuccess(data: products);
-    emit(FavoritesUpdateFavoriteList());
+    emit(FavoritesUpdateFavoriteList(favorites: products));
   }
 
   void removeFavorite(ProductDisplay product) {
@@ -51,6 +51,6 @@ class FavoritesCubit extends Cubit<FavoritesState> {
       products.remove(productToRemove);
     }
     loading = LoadingSuccess(data: products);
-    emit(FavoritesUpdateFavoriteList());
+    emit(FavoritesUpdateFavoriteList(favorites: products));
   }
 }

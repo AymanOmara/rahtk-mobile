@@ -6,6 +6,7 @@ import 'package:rahtk_mobile/core/ui/theme/colors.dart';
 import 'package:rahtk_mobile/features/main/home/business_logic/home_cubit.dart';
 import 'package:rahtk_mobile/features/main/home/presentation/widgets/category_widget.dart';
 import 'package:rahtk_mobile/features/main/home/presentation/widgets/new_arrival_products.dart';
+import 'package:rahtk_mobile/features/main/home/presentation/widgets/pharmacy_category.dart';
 import 'package:rahtk_mobile/features/main/home/presentation/widgets/product_widget.dart';
 import 'package:rahtk_mobile/features/main/home/presentation/widgets/top_navigation_bar.dart';
 
@@ -39,6 +40,7 @@ class HomePage extends StatelessWidget {
                           children: [
                             ...cubit.categories
                                 .map((e) => CategoryWidget(category: e)),
+                           const PharmacyCategory(),
                           ],
                         ),
                         const SizedBox(
@@ -84,7 +86,7 @@ class HomePage extends StatelessWidget {
                         SingleChildScrollView(
                           scrollDirection: Axis.horizontal,
                           child: Row(
-                            children: cubit.products
+                            children: cubit.popularProducts.take(3)
                                 .map((e) => ProductWidget(product: e))
                                 .toList(),
                           ),

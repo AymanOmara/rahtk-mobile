@@ -9,5 +9,10 @@ final class FavoritesLoading extends FavoritesState {}
 
 final class FavoritesResult extends FavoritesState {}
 
-final class FavoritesUpdateFavoriteList extends FavoritesState {}
+final class FavoritesUpdateFavoriteList extends FavoritesState {
+  final List<ProductDisplay> favorites;
 
+  FavoritesUpdateFavoriteList({
+    required this.favorites,
+  });
+}

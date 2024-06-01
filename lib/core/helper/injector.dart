@@ -11,10 +11,12 @@ import 'package:rahtk_mobile/features/auth/forget_password/business_logic/forget
 import 'package:rahtk_mobile/features/auth/login/business_logic/login_cubit.dart';
 import 'package:rahtk_mobile/features/auth/registration/business_logic/registration_cubit.dart';
 import 'package:rahtk_mobile/features/auth/verify_otp/business_logic/verify_otp_cubit.dart';
+import 'package:rahtk_mobile/features/main/bar_icons/business_logic/bar_icons_cubit.dart';
 import 'package:rahtk_mobile/features/main/home/business_logic/home_cubit.dart';
 import 'package:rahtk_mobile/features/main/home/display/product_display.dart';
 import 'package:rahtk_mobile/features/main/navigation_br/business_logic/rahtk_bottom_navigation_bar_cubit.dart';
 import 'package:rahtk_mobile/features/main/order_history/business_logic/order_history_cubit.dart';
+import 'package:rahtk_mobile/features/notifications/business_logic/notifications_cubit.dart';
 import 'package:rahtk_mobile/features/on_board/business_logic/on_boarding_cubit.dart';
 import 'package:rahtk_mobile/features/order/cart/business_logic/cart_cubit.dart';
 import 'package:rahtk_mobile/features/order/payment/add_payment/business_logic/add_payment_option_cubit.dart';
@@ -30,6 +32,7 @@ var getIt = GetIt.I;
 Future<void> initializeDependencies(GetIt diInjector) async {
   getIt.registerFactory(() => AppCubit(diInjector()));
   getIt.registerFactory(() => RahtkBottomNavigationBarCubit());
+  getIt.registerLazySingleton(() => BarIconsCubit(diInjector()));
 
   /// ********* Auth **********
   getIt.registerFactory(() => LoginCubit(diInjector()));
@@ -61,4 +64,6 @@ Future<void> initializeDependencies(GetIt diInjector) async {
   getIt.registerFactory(()=> AllDrugsCubit(diInjector()));
   getIt.registerFactoryParam((param1, param2)=> DrugDetailsCubit(param1 as DrugEntity,diInjector()));
 
+  /// ********* Notifications **********
+  getIt.registerFactory(()=> NotificationsCubit(diInjector()));
 }

@@ -22,10 +22,13 @@ class DrugDetailsCubit extends Cubit<DrugDetailsState> {
     emit(DrugDetailsLoading());
     int durationInt = int.tryParse(duration) ?? 0;
     _addPeriodicallyReminderUseCase(drugEntity.id, durationInt).then((value) {
+      loadingState = Idle();
       switch (value) {
         case Success(data: final data):
+          emit(DrugDetailsResult(message: data.message, success: data.statusCode == 200));
           break;
         case Failure(exception: final exception):
+          emit(DrugDetailsResult(message: exception.message, success: false));
           break;
       }
     });

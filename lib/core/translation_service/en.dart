@@ -130,6 +130,8 @@ Map<String, String> en = {
   "back_to_home":"Back To Home",
   "pharmacy":"My Pharmacy",
   "add_periodically_reminder_note":"You can add periodically reminder to remind you to purchase the medicine",
-  "period_in_days":"Period in Days"
+  "period_in_days":"Period in Days",
+  "no_data_found":"No Data Found",
+  "notifications":"Notifications"
 
 };

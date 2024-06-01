@@ -15,131 +15,147 @@ class DrugDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<DrugDetailsCubit, DrugDetailsState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is DrugDetailsResult) {
+          Get.snackbar(
+            state.success ? "success".tr : "error".tr,
+            state.message,
+          );
+        }
+      },
       builder: (context, state) {
         DrugDetailsCubit cubit = BlocProvider.of(context);
-        return Scaffold(
-          backgroundColor: RahtkColors.aliceBlue,
-          resizeToAvoidBottomInset: false,
-          body: Column(
-            children: [
-              RahtkNavigationBar(
-                title: "title".tr,
-                height: 100,
-              ),
-              Stack(
-                children: [
-                  Opacity(
-                    opacity: 1,
-                    child: CachedNetworkImage(
-                      imageUrl: "${Common.baseUrl}${cubit.drugEntity.image}",
-                      width: Get.width,
-                      height: 220,
-                      fit: BoxFit.cover,
-                      placeholder: (context, url) => const Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          CircularProgressIndicator(),
-                        ],
-                      ),
-                      errorWidget: (context, url, error) => const Icon(
-                        Icons.error,
+        return GestureDetector(
+          onTap: (){
+            FocusManager.instance.primaryFocus?.unfocus();
+          },
+          child: Scaffold(
+            backgroundColor: RahtkColors.aliceBlue,
+            resizeToAvoidBottomInset: false,
+            body: Column(
+              children: [
+                RahtkNavigationBar(
+                  title: cubit.drugEntity.name,
+                  height: 120,
+                ),
+                Stack(
+                  children: [
+                    Opacity(
+                      opacity: 1,
+                      child: CachedNetworkImage(
+                        imageUrl: "${Common.baseUrl}${cubit.drugEntity.image}",
+                        width: Get.width,
+                        height: 220,
+                        fit: BoxFit.cover,
+                        placeholder: (context, url) => const Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            CircularProgressIndicator(),
+                          ],
+                        ),
+                        errorWidget: (context, url, error) => const Icon(
+                          Icons.error,
+                        ),
                       ),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 10, vertical: 10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(
-                                0.4,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: Container(
+                              width: 40,
+                              height: 40,
+                              decoration: BoxDecoration(
+                                color: Colors.white.withOpacity(
+                                  0.4,
+                                ),
+                                shape: BoxShape.circle,
                               ),
-                              shape: BoxShape.circle,
+                              child: SvgPicture.asset(
+                                "assets/images/back_ic.svg",
+                                width: 24,
+                                height: 24,
+                              ),
                             ),
-                            child: SvgPicture.asset(
-                              "assets/images/back_ic.svg",
-                              width: 24,
-                              height: 24,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Expanded(
+                  child: CustomScrollView(
+                    slivers: [
+                      SliverFillRemaining(
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20),
+                            child: Column(
+                              children: [
+                                const SizedBox(height: 20,),
+                                Text(
+                                  "add_periodically_reminder_note".tr,
+                                  style: const TextStyle(
+                                    color: RahtkColors.darkGray,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                                TextFormField(
+                                  onChanged: (txt) {
+                                    cubit.duration = txt;
+                                  },
+                                  keyboardType: TextInputType.number,
+                                  decoration: inputDecoration("period_in_days".tr),
+                                ),
+                              ],
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      )
+                    ],
                   ),
-                ],
-              ),
-              Expanded(
-                child: CustomScrollView(
-                  slivers: [
-                    SliverFillRemaining(
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            Text(
-                              "add_periodically_reminder_note".tr,
-                              style: const TextStyle(
-                                color: RahtkColors.darkGray,
-                                fontSize: 14,
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            TextFormField(
-                              onChanged: (txt){
-                                cubit.duration = txt;
-                              },
-                              keyboardType: TextInputType.number,
-                              decoration: inputDecoration("period_in_days".tr),
-                            ),
-                          ],
+                ),
+                RahtkLoadingButton(
+                  loadingState: cubit.loadingState,
+                  child: InkWell(
+                    onTap: () {
+                      cubit.submit();
+                    },
+                    child: Container(
+                      alignment: Alignment.center,
+                      width: Get.width - 20,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 10,
+                      ),
+                      decoration: BoxDecoration(
+                        color: RahtkColors.tealColor,
+                        borderRadius: BorderRadius.circular(
+                          20,
                         ),
                       ),
-                    )
-                  ],
-                ),
-              ),
-              RahtkLoadingButton(
-                loadingState: cubit.loadingState,
-                child: InkWell(
-                  onTap: (){
-                    cubit.submit();
-                  },
-                  child: Container(
-                    alignment: Alignment.center,
-                    width: Get.width - 20,
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 10,
-                    ),
-                    decoration: BoxDecoration(
-                      color: RahtkColors.tealColor,
-                      borderRadius: BorderRadius.circular(
-                        20,
-                      ),
-                    ),
-                    child: Text(
-                      "save".tr,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                      child: Text(
+                        "save".tr,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-            ],
+                const SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
           ),
         );
       },

@@ -20,8 +20,10 @@ import 'package:domain/features/product/use_case/get_favorites_use_case.dart';
 import 'package:domain/features/product/use_case/get_product_details_use_case.dart';
 import 'package:domain/features/product/use_case/remove_from_favorite_use_case.dart';
 import 'package:domain/features/profile/use_case/change_language_use_case.dart';
+import 'package:domain/features/profile/use_case/get_notifications_use_case.dart';
 import 'package:domain/features/profile/use_case/get_profile_info_use_case.dart';
 import 'package:domain/features/profile/use_case/log_out_use_case.dart';
+import 'package:domain/features/profile/use_case/logout_use_case.dart';
 import 'package:get_it/get_it.dart';
 
 Future<void> setupUseCaseInjector(GetIt diInjector) async {
@@ -53,8 +55,9 @@ Future<void> setupUseCaseInjector(GetIt diInjector) async {
 
   /// ********* Profile **********
   diInjector.registerFactory(()=> GetProfileInfoUseCase(diInjector()));
-  diInjector.registerFactory(()=> LogoutUseCase(diInjector()));
   diInjector.registerFactory(()=> ChangeLanguageUseCase(diInjector()));
+  diInjector.registerFactory(()=> GetNotificationsUseCase(diInjector()));
+  diInjector.registerFactory(()=> LogoutUseCase(diInjector()));
 
   /// ********* Drugs **********
   diInjector.registerFactory(()=> GetDrugsUseCase(diInjector()));
