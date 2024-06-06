@@ -121,6 +121,7 @@ class RegistrationPage extends StatelessWidget {
                                 height: 16,
                               ),
                               TextFormField(
+                                keyboardType: TextInputType.number,
                                 decoration: InputDecoration(
                                   labelText: "phone_number".tr,
                                 ),
@@ -128,19 +129,31 @@ class RegistrationPage extends StatelessWidget {
                                   cubit.registrationEntity.phoneNumber = phone;
                                 },
                                 validator: (phone) =>
-                                    Validator.validateRequired(phone),
+                                    Validator.validatePhone(phone),
                               ),
                               const SizedBox(
                                 height: 16,
                               ),
                               TextFormField(
-                                obscureText: true,
+                                obscureText: !cubit.isPasswordVisible,
                                 decoration: InputDecoration(
                                   labelText: "password".tr,
+                                    suffixIcon: IconButton(
+                                      icon: Icon(
+                                        cubit.isPasswordVisible
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        cubit.togglePasswordVisibility();
+                                      },
+                                    ),
                                 ),
                                 onChanged: (password) {
                                   cubit.registrationEntity.password = password;
                                 },
+
                                 validator: (password) =>
                                     Validator.validatePassword(password),
                               ),
@@ -148,9 +161,20 @@ class RegistrationPage extends StatelessWidget {
                                 height: 16,
                               ),
                               TextFormField(
-                                obscureText: true,
+                                obscureText: !cubit.isConfirmPasswordVisible,
                                 decoration: InputDecoration(
                                   labelText: "re_enter_password".tr,
+                                  suffixIcon: IconButton(
+                                    icon: Icon(
+                                      cubit.isConfirmPasswordVisible
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: Colors.white,
+                                    ),
+                                    onPressed: () {
+                                      cubit.toggleConfirmPasswordVisibility();
+                                    },
+                                  ),
                                 ),
                                 onChanged: (passwordConfirmation) {
                                   cubit.registrationEntity
@@ -159,8 +183,9 @@ class RegistrationPage extends StatelessWidget {
                                 },
                                 validator: (passwordConfirmation) =>
                                     Validator.validateConfirmPassword(
-                                        passwordConfirmation,
-                                        cubit.registrationEntity.password),
+                                  passwordConfirmation,
+                                  cubit.registrationEntity.password,
+                                ),
                               ),
                               const SizedBox(
                                 height: 16,

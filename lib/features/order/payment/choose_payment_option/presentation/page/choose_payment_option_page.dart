@@ -204,6 +204,7 @@ class ChoosePaymentOptionPage extends StatelessWidget {
                         ProductsDetails(
                           horizontalPadding: 10,
                           products: cubit.params.products,
+                          drugs: cubit.params.drugs,
                         ),
                         InkWell(
                           onTap: () {

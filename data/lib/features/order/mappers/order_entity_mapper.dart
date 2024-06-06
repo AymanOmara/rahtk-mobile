@@ -1,3 +1,4 @@
+import 'package:data/features/drugs/mapper/drug_model_to_entity.dart';
 import 'package:data/features/order/mappers/address_entity_mapper.dart';
 import 'package:data/features/order/mappers/payment_option_entity_mapper.dart';
 import 'package:data/features/order/model/order_model.dart';
@@ -11,8 +12,17 @@ extension OrderEntityMapper on OrderModel {
       paymentMethod: paymentMethod ?? "",
       address: address?.toEntity(),
       id: id ?? 0,
-      items: items?.map((e)=> OrderItemEntity(quantity: e.quantity ?? 0, product: e.product?.toEntity())).toList() ?? [],
+      items: items
+              ?.map((e) => OrderItemEntity(
+                  quantity: e.quantity ?? 0, product: e.product?.toEntity()))
+              .toList() ??
+          [],
       date: date ?? "",
+      drugs: drugs
+              ?.map((e) => OrderDrugItemEntity(
+                  drug: e.drug?.toEntity(), quantity: e.quantity ?? 0))
+              .toList() ??
+          [],
     );
   }
 }

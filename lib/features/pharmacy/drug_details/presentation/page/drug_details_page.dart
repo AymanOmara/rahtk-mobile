@@ -7,6 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rahtk_mobile/core/ui/loading/loading_btn.dart';
 import 'package:rahtk_mobile/core/ui/rahtk_navigation_bar.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
+import 'package:rahtk_mobile/features/main/bar_icons/business_logic/bar_icons_cubit.dart';
+import 'package:rahtk_mobile/features/order/cart/business_logic/cart_cubit.dart';
+import 'package:rahtk_mobile/features/order/cart/display/cart_drug_display.dart';
 import 'package:rahtk_mobile/features/pharmacy/drug_details/business_logic/drug_details_cubit.dart';
 
 class DrugDetailsPage extends StatelessWidget {
@@ -26,7 +29,7 @@ class DrugDetailsPage extends StatelessWidget {
       builder: (context, state) {
         DrugDetailsCubit cubit = BlocProvider.of(context);
         return GestureDetector(
-          onTap: (){
+          onTap: () {
             FocusManager.instance.primaryFocus?.unfocus();
           },
           child: Scaffold(
@@ -60,7 +63,9 @@ class DrugDetailsPage extends StatelessWidget {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 10, vertical: 10),
+                        horizontal: 10,
+                        vertical: 10,
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -98,7 +103,44 @@ class DrugDetailsPage extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: Column(
                               children: [
-                                const SizedBox(height: 20,),
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      cubit.drugEntity.discountPrice().isNotEmpty == true ? cubit.drugEntity.discountPrice().toString() : cubit.drugEntity.price.toString(),
+                                      softWrap: true,
+                                      style: const TextStyle(
+                                        color: RahtkColors.tealColor,
+                                        fontWeight: FontWeight.w800,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      cubit.drugEntity.discountPrice().isNotEmpty == true ? cubit.drugEntity.price.toString() : "",
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        decoration: TextDecoration.lineThrough,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      cubit.drugEntity.discountPercentage == 0
+                                          ? ""
+                                          : "${cubit.drugEntity.discountPercentage.toString()}%  ${"off".tr}",
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: RahtkColors.darkGray,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                                 Text(
                                   "add_periodically_reminder_note".tr,
                                   style: const TextStyle(
@@ -112,7 +154,8 @@ class DrugDetailsPage extends StatelessWidget {
                                     cubit.duration = txt;
                                   },
                                   keyboardType: TextInputType.number,
-                                  decoration: inputDecoration("period_in_days".tr),
+                                  decoration:
+                                      inputDecoration("period_in_days".tr),
                                 ),
                               ],
                             ),
@@ -121,6 +164,35 @@ class DrugDetailsPage extends StatelessWidget {
                       )
                     ],
                   ),
+                ),
+                InkWell(
+                  onTap: (){
+                    Get.snackbar("success".tr, "product_added_to_cart".tr);
+                    CartCubit cartCubit =  BlocProvider.of<CartCubit>(context);
+                    cartCubit.addToCartDrug(CartDrugDisplay(drug: cubit.drugEntity));
+                    BlocProvider.of<BarIconsCubit>(context).updateCartProducts(cartCubit.products.map((e)=> e.product).toList());
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding:const EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                        color: RahtkColors.tealColor,
+                        borderRadius: BorderRadius.circular(20)
+                    ),
+                    // color: RahtkColors.tealColor,
+                    width: Get.width-20,
+                    child: Text(
+                      "add_to_cart".tr,
+                      style:const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 RahtkLoadingButton(
                   loadingState: cubit.loadingState,

@@ -4,7 +4,6 @@ import 'package:domain/features/order/entity/address_entity.dart';
 import 'package:domain/features/order/entity/create_order_entity.dart';
 import 'package:domain/features/order/entity/payment_methods.dart';
 import 'package:domain/features/order/entity/payment_option_entity.dart';
-import 'package:domain/features/order/use_case/add_payment_use_case.dart';
 import 'package:domain/features/order/use_case/create_order_use_case.dart';
 import 'package:domain/features/order/use_case/get_payments_use_case.dart';
 import 'package:get/get.dart';
@@ -88,25 +87,40 @@ class ChoosePaymentOptionCubit extends Cubit<ChoosePaymentOptionState>
       switch (value) {
         case Success(data: final data):
           loadingState = LoadingSuccess(data: "data");
-          emit(ChoosePaymentOptionCreateOrderResult(success: data.success, message: data.message,orderId: data.data?.id));
+          emit(ChoosePaymentOptionCreateOrderResult(
+              success: data.success,
+              message: data.message,
+              orderId: data.data?.id));
           break;
         case Failure(exception: final exception):
           loadingState = LoadingSuccess(data: "data");
-          emit(ChoosePaymentOptionCreateOrderResult(success: false, message: exception.message));
+          emit(ChoosePaymentOptionCreateOrderResult(
+              success: false, message: exception.message));
           break;
       }
     });
   }
-  CreateOrderEntity _createOrderEntity(){
+
+  CreateOrderEntity _createOrderEntity() {
     return CreateOrderEntity(
       paymentId: paymentOptions.firstWhereOrNull((e) => e.selected)?.id,
       addressId: params.address.id,
       paymentMethod: paymentMethod.name,
+      drugs: params.drugs
+          .map(
+            (e) => CreateOrderItemEntity(
+              productId: e.drug.id,
+              quantity: e.count,
+            ),
+          )
+          .toList(),
       items: params.products
           .map(
             (e) => CreateOrderItemEntity(
-            productId: e.product.id, quantity: e.productCount),
-      )
+              productId: e.product.id,
+              quantity: e.productCount,
+            ),
+          )
           .toList(),
     );
   }

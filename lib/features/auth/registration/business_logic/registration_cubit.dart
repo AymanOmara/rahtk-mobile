@@ -14,6 +14,8 @@ class RegistrationCubit extends Cubit<RegistrationState> {
 
   final RegistrationUseCase _registrationUseCase;
   RegistrationEntity registrationEntity = RegistrationEntity();
+  bool isPasswordVisible = false;
+  bool isConfirmPasswordVisible = false;
   LoadingState loadingState = Idle();
 
   void register() {
@@ -42,5 +44,14 @@ class RegistrationCubit extends Cubit<RegistrationState> {
           );
       }
     });
+  }
+
+  void togglePasswordVisibility() {
+    isPasswordVisible = !isPasswordVisible;
+    emit(RegistrationPasswordVisibilityChanged());
+  }
+  void toggleConfirmPasswordVisibility() {
+    isConfirmPasswordVisible = !isConfirmPasswordVisible;
+    emit(RegistrationPasswordVisibilityChanged());
   }
 }

@@ -9,7 +9,8 @@ import 'package:rahtk_mobile/core/ui/theme/colors.dart';
 import 'package:rahtk_mobile/features/main/bar_icons/business_logic/bar_icons_cubit.dart';
 import 'package:rahtk_mobile/features/order/cart/business_logic/cart_cubit.dart';
 import 'package:rahtk_mobile/features/order/cart/presentation/widgets/add_new_address_widget.dart';
-import 'package:rahtk_mobile/features/order/cart/presentation/widgets/cart_item_widget.dart';
+import 'package:rahtk_mobile/features/order/cart/presentation/widgets/cart_drug_item_widget.dart';
+import 'package:rahtk_mobile/features/order/cart/presentation/widgets/cart_product_item_widget.dart';
 import 'package:rahtk_mobile/features/order/cart/presentation/widgets/products_details.dart';
 import 'package:rahtk_mobile/features/order/payment/choose_payment_option/display/choose_payment_option_params.dart';
 
@@ -22,12 +23,17 @@ class CartPage extends StatelessWidget {
       listener: (context, state) {
         CartCubit cartCubit = BlocProvider.of(context);
         BarIconsCubit barIconsCubit = BlocProvider.of(context);
-        barIconsCubit.updateCartProducts(cartCubit.products.map((e)=>e.product).toList());
+        barIconsCubit.updateCartProducts(
+            cartCubit.products.map((e) => e.product).toList());
+        barIconsCubit
+            .updateCartDrugs(cartCubit.drugs.map((e) => e.drug).toList());
       },
       builder: (context, state) {
         CartCubit cubit = BlocProvider.of(context);
         BarIconsCubit barIconsCubit = BlocProvider.of(context);
-        barIconsCubit.updateCartProducts(cubit.products.map((e)=>e.product).toList());
+        barIconsCubit
+            .updateCartProducts(cubit.products.map((e) => e.product).toList());
+        barIconsCubit.updateCartDrugs(cubit.drugs.map((e) => e.drug).toList());
         Logger.D("cart state $state");
         return Scaffold(
           backgroundColor: RahtkColors.aliceBlue,
@@ -64,8 +70,19 @@ class CartPage extends StatelessWidget {
                                 );
                               },
                             ),
+                            ListView.builder(
+                              physics: const NeverScrollableScrollPhysics(),
+                              shrinkWrap: true,
+                              itemCount: cubit.drugs.length,
+                              itemBuilder: (context, index) {
+                                return CartDrugItemWidget(
+                                  drug: cubit.drugs[index],
+                                );
+                              },
+                            ),
                             ProductsDetails(
                               products: cubit.products,
+                              drugs: cubit.drugs,
                             ),
                             const SizedBox(
                               height: 20,
@@ -79,12 +96,16 @@ class CartPage extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  if (cubit.address != null && cubit.products.isNotEmpty) {
-                    Navigator.of(context).pushNamed(AppRoutes.paymentOptions,
-                        arguments: ChoosePaymentOptionParams(
-                          products: cubit.products,
-                          address: cubit.address!,
-                        ));
+                  if (cubit.address != null &&
+                      (cubit.products.isNotEmpty || cubit.drugs.isNotEmpty)) {
+                    Navigator.of(context).pushNamed(
+                      AppRoutes.paymentOptions,
+                      arguments: ChoosePaymentOptionParams(
+                        products: cubit.products,
+                        address: cubit.address!,
+                        drugs: cubit.drugs,
+                      ),
+                    );
                   }
                 },
                 child: Container(
@@ -93,7 +114,7 @@ class CartPage extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50),
-                    color: cubit.address == null || cubit.products.isEmpty
+                    color: cubit.address == null || (cubit.products.isEmpty && cubit.drugs.isEmpty)
                         ? RahtkColors.tealColor.withOpacity(0.4)
                         : RahtkColors.tealColor,
                   ),

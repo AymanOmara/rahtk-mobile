@@ -12,9 +12,9 @@ class LoginCubit extends Cubit<LoginState> {
   LoadingState loadingState = Idle();
   String email = "";
   String password = "";
-
+  bool isPasswordVisible = false;
   void login() {
-    loadingState = Idle();
+    loadingState = Loading();
     emit(LoginLoading());
     _loginUseCase(email, password).then((value) {
       switch (value) {
@@ -26,5 +26,9 @@ class LoginCubit extends Cubit<LoginState> {
           break;
       }
     });
+  }
+  void togglePasswordVisibility() {
+    isPasswordVisible = !isPasswordVisible;
+    emit(LoginTogglePasswordVisibility());
   }
 }

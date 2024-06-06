@@ -12,12 +12,7 @@ extension StringValidation on String? {
     return emailRegex.hasMatch(this ?? "");
   }
 
-  bool isValidPhoneNumber() {
-    final RegExp egyptPhoneNumberRegex = RegExp(
-      r'^(?:\+2|002)?\s?(?:010|011|012|015)?[0-9]{8}$',
-    );
-    return egyptPhoneNumberRegex.hasMatch(this ?? "");
-  }
+
 }
 
 class Validator {
@@ -54,7 +49,19 @@ class Validator {
     }
     return null;
   }
+  static String? validatePhone(String? phone) {
+    if (phone.isNullOrEmpty()) {
+      return "required_field".tr;
+    }
+    final RegExp egyptPhoneNumberRegex = RegExp(
+      r'^(?:010|011|012|015)?[0-9]{8}$',
+    );
+    if(egyptPhoneNumberRegex.hasMatch(phone ?? "")){
+      return null;
+    }
+    return "invalid_phone".tr;
 
+  }
   static String? validateRequired(String? txt) {
     if (txt.isNullOrEmpty()) {
       return "required_field".tr;

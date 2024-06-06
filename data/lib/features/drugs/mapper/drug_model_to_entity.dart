@@ -7,6 +7,8 @@ extension DrugModelToEntity on DrugModel {
       id: id ?? 0,
       name: name ?? "",
       image: image ?? "",
+      price: price ?? 0,
+      discountPercentage: discountPercentage ?? 0,
     );
   }
 }

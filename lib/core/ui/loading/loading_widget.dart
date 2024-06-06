@@ -12,7 +12,6 @@ class LoadingWidget extends StatelessWidget {
     required this.onRetry,
     this.emptyMessage,
     this.emptyImagePath = "assets/images/empty.png",
-    this.color,
   });
 
   final Widget successWidget;
@@ -20,7 +19,6 @@ class LoadingWidget extends StatelessWidget {
   final void Function() onRetry;
   final String? emptyMessage;
   final String emptyImagePath;
-  final Color? color;
 
   @override
   Widget build(BuildContext context) {

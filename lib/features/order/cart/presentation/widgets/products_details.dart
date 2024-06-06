@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
+import 'package:rahtk_mobile/features/order/cart/display/cart_drug_display.dart';
 import 'package:rahtk_mobile/features/order/cart/display/cart_product.dart';
 import 'package:get/get.dart';
 
@@ -7,18 +8,25 @@ class ProductsDetails extends StatelessWidget {
   const ProductsDetails({
     super.key,
     required this.products,
+    required this.drugs,
     this.horizontalPadding = 20
   });
 
   final List<CartProductDisplay> products;
+  final List<CartDrugDisplay> drugs;
   final double horizontalPadding;
 
   @override
   Widget build(BuildContext context) {
+    int totalItemCount = products.fold(0, (sum, item) => sum + item.productCount) +
+        drugs.fold(0, (sum, item) => sum + item.count);
+    double totalPrice = products.fold(0.0, (sum, item) => sum + item.getFullPrice()) +
+        drugs.fold(0.0, (sum, item) => sum + item.getFullPrice());
+
     return Visibility(
-      visible: products.isNotEmpty,
+      visible: products.isNotEmpty || drugs.isNotEmpty,
       child: Container(
-        margin:  EdgeInsets.symmetric(vertical: 10, horizontal: horizontalPadding),
+        margin: EdgeInsets.symmetric(vertical: 10, horizontal: horizontalPadding),
         decoration: const BoxDecoration(
           color: Colors.white,
         ),
@@ -48,19 +56,14 @@ class ProductsDetails extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "${"price".tr} (${products.isEmpty ? "" : "${products.map((e) => e.productCount).reduce((value, element) => value + element)}"} ${"item".tr})",
+                        "${"price".tr} (${totalItemCount > 0 ? "$totalItemCount ${"item".tr}" : ""})",
                         style: const TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                       Text(
-                        products.isEmpty
-                            ? ""
-                            : products
-                                .map((e) => e.product.price * e.productCount)
-                                .reduce((value, element) => value + element)
-                                .toString(),
+                        totalItemCount > 0 ? totalPrice.toStringAsFixed(2) : "",
                         style: const TextStyle(
                           color: Colors.black,
                           fontSize: 14,
@@ -89,21 +92,20 @@ class ProductsDetails extends StatelessWidget {
                 children: [
                   Text(
                     "total_amount".tr,
-                    style:const TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
                   Text(
-                    "${products.isEmpty ? "" : products.map((e) => e.getFullPrice()).reduce((value, element) => value + element)}",
-                    style:const TextStyle(
+                    totalItemCount > 0 ? totalPrice.toStringAsFixed(2) : "",
+                    style: const TextStyle(
                       color: Colors.black,
                       fontSize: 18,
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-
                 ],
               ),
             ),

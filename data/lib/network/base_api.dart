@@ -33,6 +33,7 @@ class BaseApi implements IAPIService {
     try {
       var response = await _dio.fetch(await _createRequestOptions(targetType));
       Logger.D(response.data);
+      Logger.D(response.statusCode);
       Logger.D(await _headers());
       if (response.statusCode == 401) {
         var refreshTokenResult = await refreshToken();
@@ -50,7 +51,7 @@ class BaseApi implements IAPIService {
         );
       }
     } on FormatException catch (error) {
-      Logger.D(tag: "a7a",error.message);
+      Logger.D(tag: "",error.message);
       return Failure(JsonParsingException(error.message));
     } on DioException catch (e) {
       Logger.D(e.stackTrace);
@@ -60,7 +61,7 @@ class BaseApi implements IAPIService {
     } on TypeError catch (e) {
       Logger.D(e.stackTrace);
       Logger.D(e);
-      Logger.D(tag: "a7a",e.stackTrace);
+      Logger.D(tag: "",e.stackTrace);
       return Failure(GeneralException());
     }
   }

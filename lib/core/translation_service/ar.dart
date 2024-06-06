@@ -132,5 +132,6 @@ Map<String, String> ar = {
   "add_periodically_reminder_note":"يمكنك إضافة تذكير دوري لتذكيرك بشراء الدواء",
   "period_in_days":"الفترة بالأيام",
   "no_data_found":"لا توجد بيانات لعرضها",
-  "notifications":"الاشعارات"
+  "notifications":"الاشعارات",
+  "invalid_phone":"رقم الهاتف غير صحيح"
 };

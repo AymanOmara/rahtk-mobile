@@ -26,8 +26,10 @@ class HomeCubit extends Cubit<HomeState> {
       switch (value) {
         case Success(data: final data):
           categories = data.map((e) => e.toDisplay()).toList();
-          loadingState = LoadingSuccess(data: data);
-          products = categories.map((e)=>e.products).reduce((value, element) => value + element).toList();
+          loadingState = LoadingSuccess(data: categories);
+          if(categories.isNotEmpty){
+            products = categories.map((e)=>e.products).reduce((value, element) => value + element).toList();
+          }
           popularProducts = products;
           popularProducts.sort((a,b)=>b.purchaseCount.compareTo(a.purchaseCount));
           emit(HomeResult());
