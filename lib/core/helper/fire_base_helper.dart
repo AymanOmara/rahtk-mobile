@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:common/logger.dart';
+import 'package:di/di.dart';
+import 'package:domain/features/auth/use_case/register_fcm_token_use_case.dart';
 import 'package:domain/locale_storage/i_user_local.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -78,6 +80,8 @@ class FirebaseNotifications {
           Logger.D("fcm token $token");
           IUserLocal userLocal = getIt<IUserLocal>();
           userLocal.setFcmToken(token ?? "");
+          RegisterFcmTokenUseCase registerFcmTokenUseCase = diInjector<RegisterFcmTokenUseCase>();
+          await registerFcmTokenUseCase.call();
           await initPushNotification();
           await initLocalNotification();
         }).catchError((error) {

@@ -3,14 +3,12 @@ class CreateOrderEntity {
   int? addressId;
   String? paymentMethod;
   final List<CreateOrderItemEntity> items;
-  final List<CreateOrderItemEntity> drugs;
 
   CreateOrderEntity({
     required this.paymentId,
     required this.addressId,
     required this.paymentMethod,
     required this.items,
-    required this.drugs,
   });
 }
 

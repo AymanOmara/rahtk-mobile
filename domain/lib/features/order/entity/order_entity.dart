@@ -1,4 +1,3 @@
-import 'package:domain/features/drugs/entity/drug_entity.dart';
 import 'package:domain/features/order/entity/address_entity.dart';
 import 'package:domain/features/order/entity/payment_option_entity.dart';
 import 'package:domain/features/product/entity/product_entity.dart';
@@ -10,7 +9,6 @@ class OrderEntity {
   final AddressEntity? address;
   final PaymentOptionEntity? payment;
   final List<OrderItemEntity> items;
-  final List<OrderDrugItemEntity> drugs;
 
   OrderEntity({
     required this.payment,
@@ -19,7 +17,6 @@ class OrderEntity {
     required this.id,
     required this.items,
     required this.date,
-    required this.drugs,
   });
 
   double totalPrice() {
@@ -34,15 +31,6 @@ class OrderEntity {
       }
     }
 
-    // Calculate the total price of the drugs
-    for (var drugItem in drugs) {
-      if (drugItem.drug != null) {
-        double discountedPrice =
-            drugItem.drug!.price * (1 - drugItem.drug!.discountPercentage / 100);
-        total += discountedPrice * drugItem.quantity;
-      }
-    }
-
     return total;
   }
 }
@@ -54,15 +42,5 @@ class OrderItemEntity {
   OrderItemEntity({
     required this.quantity,
     required this.product,
-  });
-}
-
-class OrderDrugItemEntity {
-  final DrugEntity? drug;
-  final int quantity;
-
-  OrderDrugItemEntity({
-    required this.drug,
-    required this.quantity,
   });
 }

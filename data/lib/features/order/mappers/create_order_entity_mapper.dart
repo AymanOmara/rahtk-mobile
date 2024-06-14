@@ -7,14 +7,6 @@ extension CreateOrderEntityMapper on CreateOrderEntity {
         paymentId: paymentId,
         addressId: addressId,
         paymentMethod: paymentMethod,
-        drugs: drugs
-            .map(
-              (e) => CreateOrderItemModel(
-            productId: e.productId,
-            quantity: e.quantity,
-          ),
-        )
-            .toList(),
         items: items
             .map(
               (e) => CreateOrderItemModel(

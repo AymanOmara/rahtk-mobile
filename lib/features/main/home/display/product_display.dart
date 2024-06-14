@@ -14,6 +14,7 @@ class ProductDisplay {
   final String createdAt;
   final String condition;
   bool isFavorite;
+  bool selected = false;
   final String priceType;
   final String categoryNameAr;
   final String categoryNameEn;

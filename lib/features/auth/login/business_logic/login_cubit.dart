@@ -17,6 +17,7 @@ class LoginCubit extends Cubit<LoginState> {
     loadingState = Loading();
     emit(LoginLoading());
     _loginUseCase(email, password).then((value) {
+      loadingState = Idle();
       switch (value) {
         case Success(data: final data):
           emit(LoginResult(success: data.success,message: data.message));

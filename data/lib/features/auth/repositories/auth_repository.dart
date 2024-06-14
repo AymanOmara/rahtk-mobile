@@ -6,6 +6,7 @@ import 'package:data/features/auth/model/token.dart';
 import 'package:data/features/auth/request/email_verification_request.dart';
 import 'package:data/features/auth/request/forget_password_request.dart';
 import 'package:data/features/auth/request/login_request.dart';
+import 'package:data/features/auth/request/register_fcm_token_request.dart';
 import 'package:data/features/auth/request/registration_request.dart';
 import 'package:data/features/auth/request/verify_otp_request.dart';
 import 'package:data/network/i_base_api.dart';
@@ -32,7 +33,7 @@ class AuthRepository implements IAuthRepository {
     String email,
     String password,
   ) async {
-    var fcmToken =  _userLocal.fcmToken;
+    var fcmToken = _userLocal.fcmToken;
     var result = await _service.fetchData<TokenModel>(
       LoginRequest(
         email: email,
@@ -103,6 +104,22 @@ class AuthRepository implements IAuthRepository {
   ) async {
     var result = await _service
         .fetchData<bool>(ForgetPasswordRequest(data: entity.toModel()));
+    switch (result) {
+      case Success(data: final data):
+        return Success(data.toEntity(data.data ?? false));
+      case Failure(exception: final exception):
+        return Failure(exception);
+    }
+  }
+
+  @override
+  Future<Result<Response<bool>, NetworkException>> registerFcmToken() async {
+    if (_userLocal.fcmToken.isEmpty || !_userLocal.login) {
+      return Success(
+          Response<bool>(data: true, success: true, statusCode: 200));
+    }
+    var result = await _service.fetchData<bool>(
+        RegisterFcmTokenRequest(fcmToken: _userLocal.fcmToken));
     switch (result) {
       case Success(data: final data):
         return Success(data.toEntity(data.data ?? false));

@@ -133,5 +133,15 @@ Map<String, String> ar = {
   "period_in_days":"الفترة بالأيام",
   "no_data_found":"لا توجد بيانات لعرضها",
   "notifications":"الاشعارات",
-  "invalid_phone":"رقم الهاتف غير صحيح"
+  "invalid_phone":"رقم الهاتف غير صحيح",
+  "reminders":"التذكيرات",
+  "reminder_interval":"الفترة بالأيام",
+  "reminder_title":"التذكير",
+  "products_count":"عدد المنتجات",
+  "select_products":"اختر المنتجات",
+  "title":"عنوان التنبيه",
+  "update_reminder": "تعديل التنبيه",
+  "delete_reminder": "حذف التنبيه",
+  "thank_you_for_order": "شكرا لطلبك",
+  "back_to_home_page": "العودة للرئيسية",
 };

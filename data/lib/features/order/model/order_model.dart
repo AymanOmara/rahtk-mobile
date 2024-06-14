@@ -6,7 +6,6 @@ import 'order_item.dart';
 
 class OrderModel implements DecodeAble<OrderModel, Map?> {
   List<OrderItem>? items;
-  List<OrderDrugItem>? drugs;
   AddressModel? address;
   PaymentModel? payment;
   int? id;
@@ -21,7 +20,6 @@ class OrderModel implements DecodeAble<OrderModel, Map?> {
       ..id = json?['id']
       ..date = json?['createdDate']
       ..items = OrderItem().fromJson(json?['items'])
-      ..drugs = OrderDrugItem().fromJson(json?["drugs"])
       ..paymentMethod = json?['paymentMethod'];
   }
 }

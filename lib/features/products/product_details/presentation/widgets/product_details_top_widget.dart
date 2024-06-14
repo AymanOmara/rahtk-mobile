@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:rahtk_mobile/core/ui/loading/loading_btn.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
 import 'package:rahtk_mobile/features/main/bar_icons/business_logic/bar_icons_cubit.dart';
 import 'package:rahtk_mobile/features/main/home/display/product_display.dart';
@@ -140,6 +141,15 @@ class ProductDetailsTopWidget extends StatelessWidget {
                             ),
                             const SizedBox(
                               height: 16,
+                            ),
+                            TextFormField(
+                              onChanged: (txt) {
+                                cubit.duration = int.tryParse(txt) ?? 0;
+                              },
+                              keyboardType: TextInputType.number,
+                              decoration: inputDecoration(
+                                "period_in_days".tr,
+                              ),
                             ),
                             Row(
                               children: [
@@ -326,27 +336,67 @@ class ProductDetailsTopWidget extends StatelessWidget {
                       ),
                     ),
                     const Spacer(),
+                    RahtkLoadingButton(
+                      loadingState: cubit.addReminderLoading,
+                      child: InkWell(
+                        onTap: () {
+                          cubit.addToReminder();
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: Get.width - 50,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            color: RahtkColors.tealColor,
+                            borderRadius: BorderRadius.circular(
+                              20,
+                            ),
+                          ),
+                          child: Text(
+                            "save".tr,
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     InkWell(
-                      onTap: (){
-                        if(product != null){
-                          Get.snackbar("success".tr, "product_added_to_cart".tr);
-                          CartCubit cartCubit =  BlocProvider.of<CartCubit>(context);
+                      onTap: () {
+                        if (product != null) {
+                          Get.snackbar(
+                              "success".tr, "product_added_to_cart".tr);
+                          CartCubit cartCubit =
+                              BlocProvider.of<CartCubit>(context);
                           cartCubit.addToCart(product!);
-                          BlocProvider.of<BarIconsCubit>(context).updateCartProducts(cartCubit.products.map((e)=> e.product).toList());
+                          BlocProvider.of<BarIconsCubit>(context)
+                              .updateCartProducts(cartCubit.products
+                                  .map((e) => e.product)
+                                  .toList());
                         }
                       },
                       child: Container(
                         alignment: Alignment.center,
-                        padding:const EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                          vertical: 10,
+                        ),
                         decoration: BoxDecoration(
                           color: RahtkColors.tealColor,
-                          borderRadius: BorderRadius.circular(20)
+                          borderRadius: BorderRadius.circular(
+                            20,
+                          ),
                         ),
-                        // color: RahtkColors.tealColor,
-                        width: Get.width-50,
+                        width: Get.width - 50,
                         child: Text(
                           "add_to_cart".tr,
-                          style:const TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
@@ -355,7 +405,7 @@ class ProductDetailsTopWidget extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      height: MediaQuery.of(context).padding.bottom,
+                      height: MediaQuery.of(context).padding.bottom + 20,
                     ),
                   ],
                 ),
@@ -364,6 +414,35 @@ class ProductDetailsTopWidget extends StatelessWidget {
           ),
         )
       ],
+    );
+  }
+
+  InputBorder border() {
+    return const UnderlineInputBorder(
+      borderSide: BorderSide(
+        color: RahtkColors.lightGrayish,
+      ),
+    );
+  }
+
+  InputDecoration inputDecoration(String hintText) {
+    return InputDecoration(
+      labelText: hintText,
+      hintText: hintText,
+      hintStyle: const TextStyle(
+        color: RahtkColors.darkGray,
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+      ),
+      labelStyle: const TextStyle(
+        color: RahtkColors.darkGray,
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+      ),
+      border: border(),
+      disabledBorder: border(),
+      enabledBorder: border(),
+      focusedBorder: border(),
     );
   }
 }

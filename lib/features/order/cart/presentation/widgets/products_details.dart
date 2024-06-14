@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
-import 'package:rahtk_mobile/features/order/cart/display/cart_drug_display.dart';
 import 'package:rahtk_mobile/features/order/cart/display/cart_product.dart';
 import 'package:get/get.dart';
 
@@ -8,23 +7,19 @@ class ProductsDetails extends StatelessWidget {
   const ProductsDetails({
     super.key,
     required this.products,
-    required this.drugs,
     this.horizontalPadding = 20
   });
 
   final List<CartProductDisplay> products;
-  final List<CartDrugDisplay> drugs;
   final double horizontalPadding;
 
   @override
   Widget build(BuildContext context) {
-    int totalItemCount = products.fold(0, (sum, item) => sum + item.productCount) +
-        drugs.fold(0, (sum, item) => sum + item.count);
-    double totalPrice = products.fold(0.0, (sum, item) => sum + item.getFullPrice()) +
-        drugs.fold(0.0, (sum, item) => sum + item.getFullPrice());
+    int totalItemCount = products.fold(0, (sum, item) => sum + item.productCount);
+    double totalPrice = products.fold(0.0, (sum, item) => sum + item.getFullPrice());
 
     return Visibility(
-      visible: products.isNotEmpty || drugs.isNotEmpty,
+      visible: products.isNotEmpty,
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 10, horizontal: horizontalPadding),
         decoration: const BoxDecoration(

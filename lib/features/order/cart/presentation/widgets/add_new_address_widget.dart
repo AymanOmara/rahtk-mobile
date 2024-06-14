@@ -48,7 +48,10 @@ class AddNewAddressWidget extends StatelessWidget {
         : Container(
             color: Colors.white,
             alignment: Alignment.center,
-            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+            padding: const EdgeInsets.symmetric(
+              vertical: 10,
+              horizontal: 20,
+            ),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -71,9 +74,13 @@ class AddNewAddressWidget extends StatelessWidget {
                   },
                   child: Container(
                     padding: const EdgeInsets.symmetric(
-                        vertical: 10, horizontal: 10),
+                      vertical: 10,
+                      horizontal: 10,
+                    ),
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
+                      borderRadius: BorderRadius.circular(
+                        50,
+                      ),
                       color: RahtkColors.tealColor,
                     ),
                     child: Text(

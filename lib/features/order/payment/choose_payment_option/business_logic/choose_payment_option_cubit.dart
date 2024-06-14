@@ -106,14 +106,6 @@ class ChoosePaymentOptionCubit extends Cubit<ChoosePaymentOptionState>
       paymentId: paymentOptions.firstWhereOrNull((e) => e.selected)?.id,
       addressId: params.address.id,
       paymentMethod: paymentMethod.name,
-      drugs: params.drugs
-          .map(
-            (e) => CreateOrderItemEntity(
-              productId: e.drug.id,
-              quantity: e.count,
-            ),
-          )
-          .toList(),
       items: params.products
           .map(
             (e) => CreateOrderItemEntity(

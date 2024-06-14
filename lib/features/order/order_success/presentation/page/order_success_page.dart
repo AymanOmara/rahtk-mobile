@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:rahtk_mobile/core/helper/constants.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
-import 'package:rahtk_mobile/features/main/bar_icons/business_logic/bar_icons_cubit.dart';
 import 'package:rahtk_mobile/features/order/order_success/order_success_params_display.dart';
 import 'package:get/get.dart';
 import 'package:rahtk_mobile/features/order/order_success/presentation/widgets/success_order_item_widget.dart';
@@ -113,7 +111,6 @@ class OrderSuccessPage extends StatelessWidget {
                   ),
                   Container(
                     width: Get.width,
-                    padding: EdgeInsets.symmetric(horizontal: 0),
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(5)),

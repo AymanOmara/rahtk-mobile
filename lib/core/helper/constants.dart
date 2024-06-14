@@ -28,7 +28,8 @@ class AppRoutes {
   static const addPayment = "/addPayment";
   static const orderSuccess = "/orderSuccess";
 
-  /// ********* Drug **********
-  static const allDrugsPage = "/allDrugsPage";
-  static const drugDetails = "/drugDetails";
+  /// ********* reminders **********
+  static const allReminders = "/allReminders";
+  static const addReminder = "/addReminder";
+  static const updateReminder = "/updateReminder";
 }

@@ -14,7 +14,7 @@ class ProductCategoryNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 140,
+      height: 100,
       width: Get.width,
       decoration: const BoxDecoration(
         color: RahtkColors.tealColor,
@@ -24,6 +24,7 @@ class ProductCategoryNavigationBar extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).padding.top,
           ),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Stack(
@@ -60,7 +61,8 @@ class ProductCategoryNavigationBar extends StatelessWidget {
                 ),
               ],
             ),
-          )
+          ),
+          const Spacer(),
         ],
       ),
     );

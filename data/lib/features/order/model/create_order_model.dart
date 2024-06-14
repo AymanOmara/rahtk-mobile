@@ -5,14 +5,12 @@ class CreateOrderModel implements EncodeAble {
   int? addressId;
   String? paymentMethod;
   List<CreateOrderItemModel>? items;
-  List<CreateOrderItemModel>? drugs;
 
   CreateOrderModel({
     this.paymentMethod,
     this.items,
     this.addressId,
     this.paymentId,
-    this.drugs,
   });
 
   @override
@@ -27,12 +25,6 @@ class CreateOrderModel implements EncodeAble {
                 "productCount": e.quantity,
               })
           .toList(),
-      "drugItemModel": drugs
-          ?.map((e) => {
-                "productId": e.productId,
-                "productCount": e.quantity,
-              })
-          .toList()
     };
   }
 }

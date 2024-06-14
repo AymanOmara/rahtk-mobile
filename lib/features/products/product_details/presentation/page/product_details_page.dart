@@ -37,6 +37,13 @@ class ProductDetailsPage extends StatelessWidget {
             );
           }
         }
+        if(state is ProductDetailsReminderResult){
+          Get.snackbar(
+            state.success ? "success".tr : "error".tr,
+            state.message,
+            snackPosition: SnackPosition.BOTTOM,
+          );
+        }
       },
       builder: (context, state) {
         ProductDetailsCubit cubit = BlocProvider.of(context);

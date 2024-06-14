@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:common/logger.dart';
 import 'package:domain/common/result.dart';
-import 'package:domain/features/drugs/entity/drug_entity.dart';
 import 'package:domain/features/product/use_case/get_favorites_use_case.dart';
 import 'package:meta/meta.dart';
 import 'package:rahtk_mobile/core/display/loading_states.dart';
@@ -22,7 +21,6 @@ class BarIconsCubit extends Cubit<BarIconsState> {
   LoadingState loadingState = Idle();
   List<ProductDisplay> favorites = [];
   List<ProductDisplay> cartProducts = [];
-  List<DrugEntity> drugs = [];
   int notification = 0;
 
   void fetch() {
@@ -35,7 +33,7 @@ class BarIconsCubit extends Cubit<BarIconsState> {
           favorites = data.map((e) => e.toDisplay()).toList();
           emit(BarIconsResult());
           break;
-        case Failure(exception: final exception):
+        case Failure(exception: final _):
           loadingState = Idle();
           emit(BarIconsResult());
           break;
@@ -58,11 +56,6 @@ class BarIconsCubit extends Cubit<BarIconsState> {
   }
   void updateCartProducts(List<ProductDisplay> products) {
     cartProducts = products;
-    Logger.D("updateCartProducts");
-    emit(BarIconsUpdateFavorites());
-  }
-  void updateCartDrugs(List<DrugEntity> products) {
-    drugs = products;
     Logger.D("updateCartProducts");
     emit(BarIconsUpdateFavorites());
   }

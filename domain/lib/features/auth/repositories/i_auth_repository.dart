@@ -15,4 +15,6 @@ abstract interface class IAuthRepository{
   Future<Result<Response<bool>,NetworkException>> verifyOtp(String otp,String email);
 
   Future<Result<Response<bool>,NetworkException>> forgetPassword(ForgetPasswordEntity entity);
+
+  Future<Result<Response<bool>,NetworkException>> registerFcmToken();
 }

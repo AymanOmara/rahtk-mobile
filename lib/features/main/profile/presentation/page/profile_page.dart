@@ -1,10 +1,8 @@
 import 'package:di/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:rahtk_mobile/core/helper/constants.dart';
-import 'package:rahtk_mobile/core/helper/injector.dart';
 import 'package:rahtk_mobile/core/ui/theme/colors.dart';
 import 'package:rahtk_mobile/features/main/bar_icons/presentation/bar_icons_widget.dart';
 import 'package:rahtk_mobile/features/main/profile/business_logic/profile_cubit.dart';
@@ -69,7 +67,7 @@ class ProfilePage extends StatelessWidget {
                             ),
                           ),
                           const BarIconsWidget(
-                            isNotificationVisible: true,
+                            isNotificationVisible: false,
                           ),
                         ],
                       ),
@@ -163,6 +161,14 @@ class ProfilePage extends StatelessWidget {
                               );
                             },
                             title: "terms_and_conditions".tr,
+                          ),
+                          ProfileItemWidget(
+                            onTap: () {
+                              Navigator.of(context).pushNamed(
+                                AppRoutes.allReminders,
+                              );
+                            },
+                            title: "reminders".tr,
                           ),
                           ProfileItemWidget(
                             dividerVisible: false,

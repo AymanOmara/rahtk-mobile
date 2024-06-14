@@ -33,7 +33,7 @@ class TopNavigationBar extends StatelessWidget {
                 ),
               ),
               const BarIconsWidget(
-                isNotificationVisible: false,
+                isNotificationVisible: true,
               ),
             ],
           ),

@@ -2,10 +2,9 @@ import 'package:domain/features/app/use_case/get_user_status_use_case.dart';
 import 'package:domain/features/auth/use_case/email_verification_use_case.dart';
 import 'package:domain/features/auth/use_case/forget_password_use_case.dart';
 import 'package:domain/features/auth/use_case/login_use_case.dart';
+import 'package:domain/features/auth/use_case/register_fcm_token_use_case.dart';
 import 'package:domain/features/auth/use_case/registration_use_case.dart';
 import 'package:domain/features/auth/use_case/verify_otp_use_case.dart';
-import 'package:domain/features/drugs/use_case/add_periodically_reminder_use_case.dart';
-import 'package:domain/features/drugs/use_case/get_drugs_use_case.dart';
 import 'package:domain/features/on_boarding/use_case/change_first_launch_use_case.dart';
 import 'package:domain/features/order/use_case/add_payment_use_case.dart';
 import 'package:domain/features/order/use_case/create_address_use_case.dart';
@@ -22,8 +21,11 @@ import 'package:domain/features/product/use_case/remove_from_favorite_use_case.d
 import 'package:domain/features/profile/use_case/change_language_use_case.dart';
 import 'package:domain/features/profile/use_case/get_notifications_use_case.dart';
 import 'package:domain/features/profile/use_case/get_profile_info_use_case.dart';
-import 'package:domain/features/profile/use_case/log_out_use_case.dart';
 import 'package:domain/features/profile/use_case/logout_use_case.dart';
+import 'package:domain/features/reminder/use_case/add_periodically_reminder_use_case.dart';
+import 'package:domain/features/reminder/use_case/delete_reminder_use_case.dart';
+import 'package:domain/features/reminder/use_case/get_reminders_use_case.dart';
+import 'package:domain/features/reminder/use_case/update_reminder_use_case.dart';
 import 'package:get_it/get_it.dart';
 
 Future<void> setupUseCaseInjector(GetIt diInjector) async {
@@ -36,6 +38,7 @@ Future<void> setupUseCaseInjector(GetIt diInjector) async {
   diInjector.registerFactory(() => RegistrationUseCase(diInjector()));
   diInjector.registerFactory(() => VerifyOtpUseCase(diInjector()));
   diInjector.registerFactory(() => ForgetPasswordUseCase(diInjector()));
+  diInjector.registerFactory(() => RegisterFcmTokenUseCase(diInjector()));
 
   /// ********* Product **********
   diInjector.registerFactory(() => GetCategoriesUseCase(diInjector()));
@@ -59,8 +62,11 @@ Future<void> setupUseCaseInjector(GetIt diInjector) async {
   diInjector.registerFactory(()=> GetNotificationsUseCase(diInjector()));
   diInjector.registerFactory(()=> LogoutUseCase(diInjector()));
 
-  /// ********* Drugs **********
-  diInjector.registerFactory(()=> GetDrugsUseCase(diInjector()));
+  /// ********* Reminders **********
+  diInjector.registerFactory(()=> GetRemindersUseCase(diInjector()));
   diInjector.registerFactory(()=> AddPeriodicallyReminderUseCase(diInjector()));
+  diInjector.registerFactory(()=> UpdateReminderUseCase(diInjector()));
+  diInjector.registerFactory(()=> DeleteReminderUseCase(diInjector()));
+
 
 }

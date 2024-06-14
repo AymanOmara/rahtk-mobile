@@ -15,7 +15,6 @@ class OrderHistoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("${Common.baseUrl}${order.items.isEmpty?order.drugs.first.drug?.image:order.items.first.product?.image}");
     TextStyle orderIDStyle = const TextStyle(
       fontSize: 16,
       fontWeight: FontWeight.bold,
@@ -72,7 +71,7 @@ class OrderHistoryWidget extends StatelessWidget {
             children: [
               CachedNetworkImage(
                 imageUrl:
-                    "${Common.baseUrl}${order.items.isEmpty?order.drugs.first.drug?.image:order.items.first.product?.image}",
+                    "${Common.baseUrl}""${order.items.first.product?.image}",
                 width: 102,
                 height: 102,
                 fit: BoxFit.cover,

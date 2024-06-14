@@ -30,8 +30,10 @@ class BaseApi implements IAPIService {
     DecodeAble? data,
   }) async {
     Logger.D(targetType.body);
+
     try {
       var response = await _dio.fetch(await _createRequestOptions(targetType));
+      Logger.D(response.realUri);
       Logger.D(response.data);
       Logger.D(response.statusCode);
       Logger.D(await _headers());

@@ -1,7 +1,7 @@
 import 'package:domain/features/auth/entities/forget_password_entity.dart';
-import 'package:domain/features/drugs/entity/drug_entity.dart';
 import 'package:domain/features/order/entity/address_entity.dart';
 import 'package:domain/features/order/entity/payment_option_entity.dart';
+import 'package:domain/features/reminder/entity/reminder_entity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rahtk_mobile/core/helper/constants.dart';
@@ -18,12 +18,11 @@ import 'package:rahtk_mobile/features/notifications/presentation/page/notificati
 import 'package:rahtk_mobile/features/on_board/business_logic/on_boarding_cubit.dart';
 import 'package:rahtk_mobile/features/order/payment/add_payment/business_logic/add_payment_option_cubit.dart';
 import 'package:rahtk_mobile/features/order/payment/add_payment/presentation/page/add_payment_page.dart';
-import 'package:rahtk_mobile/features/pharmacy/all_drugs/business_logic/all_drugs_cubit.dart';
-import 'package:rahtk_mobile/features/pharmacy/drug_details/business_logic/drug_details_cubit.dart';
-import 'package:rahtk_mobile/features/pharmacy/drug_details/presentation/page/drug_details_page.dart';
 import 'package:rahtk_mobile/features/products/category_products/presentation/page/category_products_page.dart';
 import 'package:rahtk_mobile/features/order/payment/choose_payment_option/business_logic/choose_payment_option_cubit.dart';
 import 'package:rahtk_mobile/features/products/product_details/business_logic/product_details_cubit.dart';
+import 'package:rahtk_mobile/features/reminders/update_reminder/business_logic/update_reminder_cubit.dart';
+import 'package:rahtk_mobile/features/reminders/update_reminder/presentation/page/update_reminder_page.dart';
 
 import 'core/display/i_add_able.dart';
 import 'features/address/add_new_address/presentation/page/add_address_page.dart';
@@ -40,10 +39,14 @@ import 'features/order/cart/presentation/page/cart_page.dart';
 import 'features/order/order_success/order_success_params_display.dart';
 import 'features/order/order_success/presentation/page/order_success_page.dart';
 import 'features/order/payment/choose_payment_option/display/choose_payment_option_params.dart';
-import 'features/pharmacy/all_drugs/presentation/page/all_drugs_page.dart';
 import 'features/products/favorites/presentation/page/favorite_page.dart';
 import 'features/order/payment/choose_payment_option/presentation/page/choose_payment_option_page.dart';
 import 'features/products/product_details/presentation/page/product_details_page.dart';
+import 'features/reminders/add_reminder/business_logic/add_reminder_cubit.dart';
+import 'features/reminders/add_reminder/presentation/page/add_reminder_page.dart';
+import 'features/reminders/get_reminders/business_logic/get_reminders_cubit.dart';
+import 'features/reminders/get_reminders/presentation/page/get_reminders_page.dart';
+import 'features/reminders/update_reminder/display/update_reminder_display.dart';
 import 'features/terms_conditions/presentation/terms_conditions_page.dart';
 
 class AppRouter {
@@ -163,27 +166,34 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => const TermsConditionsPage(),
         );
-      case AppRoutes.allDrugsPage:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<AllDrugsCubit>(),
-            child: const AllDrugsPage(),
-          ),
-        );
-      case AppRoutes.drugDetails:
-        return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (_) => getIt<DrugDetailsCubit>(
-              param1: settings.arguments as DrugEntity,
-            ),
-            child: const DrugDetailsPage(),
-          ),
-        );
       case AppRoutes.notifications:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (_) => getIt<NotificationsCubit>(),
-            child:const NotificationsPage(),
+            child: const NotificationsPage(),
+          ),
+        );
+      case AppRoutes.allReminders:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<GetRemindersCubit>(),
+            child: const GetRemindersPage(),
+          ),
+        );
+      case AppRoutes.addReminder:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<AddReminderCubit>(
+              param1: settings.arguments as IAddAble<ReminderEntity>,
+            ),
+            child: AddReminderPage(),
+          ),
+        );
+      case AppRoutes.updateReminder:
+        return MaterialPageRoute(
+          builder: (_) => BlocProvider(
+            create: (_) => getIt<UpdateReminderCubit>(param1: settings.arguments as UpdateReminderDisplay),
+            child: UpdateReminderPage(),
           ),
         );
     }
