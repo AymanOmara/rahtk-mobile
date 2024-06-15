@@ -40,11 +40,10 @@ class UpdateReminderCubit extends Cubit<UpdateReminderState> {
       switch (value) {
         case Success(data: final data):
           products = data.map((e) => e.toDisplay()).toList();
-          for (var product in products) {
-            var reminderProduct =
-                reminder.products.firstWhereOrNull((pr) => pr.id == product.id);
+          for (var product in reminder.products) {
+            var reminderProduct = products.firstWhereOrNull((pr) => pr.id == product.id);
             if (reminderProduct != null) {
-              product.selected = true;
+              reminderProduct.selected = true;
             }
           }
           productsLoading = LoadingSuccess(data: data);
@@ -59,7 +58,8 @@ class UpdateReminderCubit extends Cubit<UpdateReminderState> {
   }
 
   void updateReminder() {
-    reminderLoading = Idle();
+    reminderLoading = Loading();
+    emit(UpdateReminderLoading());
     _updateReminderUseCase(_reminderEntity()).then((value) {
       switch (value) {
         case Success(data: final data):
@@ -86,13 +86,14 @@ class UpdateReminderCubit extends Cubit<UpdateReminderState> {
   }
 
   void deleteReminder() {
-    reminderLoading = Idle();
-    _updateReminderUseCase(_reminderEntity()).then((value) {
+    reminderLoading = Loading();
+    emit(UpdateReminderLoading());
+    _deleteReminderUseCase(_reminderEntity()).then((value) {
       switch (value) {
         case Success(data: final data):
           reminderLoading = LoadingSuccess(data: data);
           if (data.data != null) {
-            updateReminderDisplay.updateAble.onRemove(data.data!);
+            updateReminderDisplay.updateAble.onRemove(reminder);
           }
           emit(
             UpdateReminderResult(

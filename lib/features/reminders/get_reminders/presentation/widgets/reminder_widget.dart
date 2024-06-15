@@ -62,12 +62,6 @@ class ReminderWidget extends StatelessWidget {
             Text(
               "${"reminder_interval".tr} ${reminder.timeInterval.toString()}",
             ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              "${"products_count".tr} ${reminder.products.length}",
-            ),
           ],
         ),
       ),
