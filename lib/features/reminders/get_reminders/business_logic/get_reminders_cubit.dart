@@ -49,8 +49,7 @@ class GetRemindersCubit extends Cubit<GetRemindersState> implements IAddAble<Rem
 
   @override
   void onUpdate(ReminderEntity item) {
-    var oldReminder = reminders.firstWhere((element) => element.id == item.id);
-    oldReminder = item;
+    reminders[reminders.indexWhere((element) => element.id == item.id)] = item;
     emit(GetRemindersResult());
   }
 }

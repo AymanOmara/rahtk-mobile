@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:common/logger.dart';
 import 'package:domain/common/result.dart';
 import 'package:domain/features/product/use_case/get_all_products_use_case.dart';
 import 'package:domain/features/reminder/entity/reminder_entity.dart';
@@ -40,6 +41,7 @@ class UpdateReminderCubit extends Cubit<UpdateReminderState> {
       switch (value) {
         case Success(data: final data):
           products = data.map((e) => e.toDisplay()).toList();
+          Logger.D(reminder.products.length);
           for (var product in reminder.products) {
             var reminderProduct = products.firstWhereOrNull((pr) => pr.id == product.id);
             if (reminderProduct != null) {
@@ -66,6 +68,9 @@ class UpdateReminderCubit extends Cubit<UpdateReminderState> {
           reminderLoading = LoadingSuccess(data: data);
           if (data.data != null) {
             updateReminderDisplay.updateAble.onUpdate(data.data!);
+          }
+          for(var product in products){
+            product.selected = false;
           }
           emit(UpdateReminderResult(
             success: data.success,
