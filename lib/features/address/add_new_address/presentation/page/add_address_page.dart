@@ -23,7 +23,22 @@ class AddAddressPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AddAddressCubit, AddAddressState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is AddAddressResult) {
+          if (state.success) {
+            Get.back();
+            Get.snackbar(
+              "success".tr,
+              state.message,
+            );
+          }else{
+            Get.snackbar(
+              "error".tr,
+              state.message,
+            );
+          }
+        }
+      },
       builder: (context, state) {
         AddAddressCubit cubit = BlocProvider.of(context);
         return Scaffold(
@@ -48,7 +63,8 @@ class AddAddressPage extends StatelessWidget {
                                 bool? serviceEnabled;
                                 LocationPermission? permission;
 
-                                serviceEnabled = await Geolocator.isLocationServiceEnabled();
+                                serviceEnabled =
+                                    await Geolocator.isLocationServiceEnabled();
                                 if (!serviceEnabled) {
                                   Get.snackbar(
                                     "error".tr,
@@ -58,28 +74,39 @@ class AddAddressPage extends StatelessWidget {
                                 }
                                 permission = await Geolocator.checkPermission();
                                 if (permission == LocationPermission.denied) {
-                                  permission = await Geolocator.requestPermission();
+                                  permission =
+                                      await Geolocator.requestPermission();
                                 }
-                                if (permission != LocationPermission.always && permission != LocationPermission.whileInUse) {
+                                if (permission != LocationPermission.always &&
+                                    permission !=
+                                        LocationPermission.whileInUse) {
                                   Get.snackbar(
                                     "error".tr,
                                     "location_disabled".tr,
                                   );
                                   return;
                                 }
-                                Position position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-                                List<Placemark> placeMarks = await placemarkFromCoordinates(position.latitude, position.longitude);
-                                if(placeMarks.isNotEmpty){
+                                Position position =
+                                    await Geolocator.getCurrentPosition(
+                                        desiredAccuracy: LocationAccuracy.high);
+                                List<Placemark> placeMarks =
+                                    await placemarkFromCoordinates(
+                                        position.latitude, position.longitude);
+                                if (placeMarks.isNotEmpty) {
                                   Placemark place = placeMarks[0];
                                   _streetController.text = place.street ?? "";
-                                  _cityController.text = place.subAdministrativeArea ?? "";
-                                  _stateController.text = place.administrativeArea ?? "";
+                                  _cityController.text =
+                                      place.subAdministrativeArea ?? "";
+                                  _stateController.text =
+                                      place.administrativeArea ?? "";
                                   _zipController.text = place.postalCode ?? "";
                                   cubit.entity.street = place.street ?? "";
-                                  cubit.entity.city = place.subAdministrativeArea ?? "";
-                                  cubit.entity.state = place.administrativeArea ?? "";
+                                  cubit.entity.city =
+                                      place.subAdministrativeArea ?? "";
+                                  cubit.entity.state =
+                                      place.administrativeArea ?? "";
                                   cubit.entity.zipCode = place.postalCode ?? "";
-                                }else{
+                                } else {
                                   Get.snackbar(
                                     "error".tr,
                                     "location_un_recognized".tr,
@@ -99,7 +126,8 @@ class AddAddressPage extends StatelessWidget {
                               controller: _nameController,
                               cursorColor: RahtkColors.darkGray,
                               decoration: inputDecoration("name".tr),
-                              validator: (txt)=> Validator.validateRequired(txt),
+                              validator: (txt) =>
+                                  Validator.validateRequired(txt),
                               onChanged: (value) {
                                 cubit.entity.name = value;
                               },
@@ -109,7 +137,8 @@ class AddAddressPage extends StatelessWidget {
                               controller: _phoneController,
                               cursorColor: RahtkColors.darkGray,
                               decoration: inputDecoration("phone".tr),
-                              validator: (txt)=> Validator.validateRequired(txt),
+                              validator: (txt) =>
+                                  Validator.validateRequired(txt),
                               onChanged: (value) {
                                 cubit.entity.phoneNumber = value;
                               },
@@ -119,7 +148,8 @@ class AddAddressPage extends StatelessWidget {
                               controller: _streetController,
                               cursorColor: RahtkColors.darkGray,
                               decoration: inputDecoration("street_address".tr),
-                              validator: (txt)=> Validator.validateRequired(txt),
+                              validator: (txt) =>
+                                  Validator.validateRequired(txt),
                               onChanged: (value) {
                                 cubit.entity.street = value;
                               },
@@ -129,7 +159,8 @@ class AddAddressPage extends StatelessWidget {
                               controller: _cityController,
                               cursorColor: RahtkColors.darkGray,
                               decoration: inputDecoration("city".tr),
-                              validator: (txt)=> Validator.validateRequired(txt),
+                              validator: (txt) =>
+                                  Validator.validateRequired(txt),
                               onChanged: (value) {
                                 cubit.entity.city = value;
                               },
@@ -139,7 +170,8 @@ class AddAddressPage extends StatelessWidget {
                               controller: _stateController,
                               cursorColor: RahtkColors.darkGray,
                               decoration: inputDecoration("state".tr),
-                              validator: (txt)=> Validator.validateRequired(txt),
+                              validator: (txt) =>
+                                  Validator.validateRequired(txt),
                               onChanged: (value) {
                                 cubit.entity.state = value;
                               },
@@ -149,7 +181,8 @@ class AddAddressPage extends StatelessWidget {
                               controller: _zipController,
                               cursorColor: RahtkColors.darkGray,
                               decoration: inputDecoration("zip_code".tr),
-                              validator: (txt)=> Validator.validateRequired(txt),
+                              validator: (txt) =>
+                                  Validator.validateRequired(txt),
                               onChanged: (value) {
                                 cubit.entity.zipCode = value;
                               },
