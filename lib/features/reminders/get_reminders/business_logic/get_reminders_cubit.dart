@@ -7,6 +7,7 @@ import 'package:meta/meta.dart';
 import 'package:rahtk_mobile/core/display/i_add_able.dart';
 import 'package:rahtk_mobile/core/display/i_update_able.dart';
 import 'package:rahtk_mobile/core/display/loading_states.dart';
+import 'package:rahtk_mobile/core/helper/utils.dart';
 
 part 'get_reminders_state.dart';
 
@@ -49,7 +50,7 @@ class GetRemindersCubit extends Cubit<GetRemindersState> implements IAddAble<Rem
 
   @override
   void onUpdate(ReminderEntity item) {
-    reminders[reminders.indexWhere((element) => element.id == item.id)] = item;
+    reminders.updateWhere((e)=> e.id == item.id, item);
     emit(GetRemindersResult());
   }
 }
