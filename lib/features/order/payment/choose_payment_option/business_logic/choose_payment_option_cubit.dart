@@ -40,7 +40,7 @@ class ChoosePaymentOptionCubit extends Cubit<ChoosePaymentOptionState>
       switch (value) {
         case Success(data: final data):
           paymentOptions = data.map((e) => e.toDisplay()).toList();
-          loadingState = LoadingSuccess(data: data);
+          loadingState = LoadingSuccess(data: "data");
           emit(ChoosePaymentOptionResult());
           break;
         case Failure(exception: final exception):
