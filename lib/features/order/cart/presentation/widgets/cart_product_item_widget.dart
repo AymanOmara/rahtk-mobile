@@ -80,15 +80,17 @@ class CartItemWidget extends StatelessWidget {
                     ),
                     Row(
                       children: [
-                        Text(
-                          product.product.discountPrice().isNotEmpty == true
-                              ? product.product.discountPrice().toString()
-                              : product.product.price.toString(),
-                          softWrap: true,
-                          style: const TextStyle(
-                            color: RahtkColors.tealColor,
-                            fontWeight: FontWeight.w800,
-                            fontSize: 18,
+                        Expanded(
+                          child: Text(
+                            product.product.discountPrice().isNotEmpty == true
+                                ? product.product.discountPrice().toString()
+                                : product.product.price.toString(),
+                            softWrap: true,
+                            style: const TextStyle(
+                              color: RahtkColors.tealColor,
+                              fontWeight: FontWeight.w800,
+                              fontSize: 18,
+                            ),
                           ),
                         ),
                         const SizedBox(
