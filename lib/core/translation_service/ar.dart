@@ -144,4 +144,5 @@ Map<String, String> ar = {
   "delete_reminder": "حذف التنبيه",
   "thank_you_for_order": "شكرا لطلبك",
   "back_to_home_page": "العودة للرئيسية",
+  "error_try_again_later": "حدث خطأ ، يرجى المحاولة لاحقاً"
 };

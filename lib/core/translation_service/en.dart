@@ -159,4 +159,5 @@ Map<String, String> en = {
   "update_reminder": "Update Reminder",
   "delete_reminder": "Delete Reminder",
   "thank_you_for_order": "Thank you for ordering",
+  "error_try_again_later": "Error, please try again later"
 };
