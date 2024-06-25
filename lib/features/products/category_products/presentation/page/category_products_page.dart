@@ -19,14 +19,16 @@ class CategoryProductsPage extends StatelessWidget {
           ProductCategoryNavigationBar(
             title: category.localizedName,
           ),
-          SingleChildScrollView(
-            child: Wrap(
-              runSpacing: 10,
-              children: category.products
-                  .map(
-                    (e) => ProductWidget(product: e),
-                  )
-                  .toList(),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Wrap(
+                runSpacing: 10,
+                children: category.products
+                    .map(
+                      (e) => ProductWidget(product: e),
+                    )
+                    .toList(),
+              ),
             ),
           ),
         ],
