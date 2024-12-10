@@ -9,18 +9,21 @@ class BaseResponse<T> implements DecodeAble<BaseResponse<T?>, Map?> {
 
   BaseResponse({
     this.decodeAble,
+    this.data,
+    this.message,
+    this.statusCode,
+    this.success,
   });
 
   @override
   BaseResponse<T?> fromJson(json) {
-    var response = BaseResponse<T?>()
-      ..data = json?.containsKey("data") == true
+    return BaseResponse<T?>(
+      data: json?.containsKey("data") == true
           ? decodeAble?.fromJson(json?["data"] ?? {})
-          : null
-      ..message = json?["message"]
-      ..statusCode = json?["statusCode"]
-      ..success = json?["success"];
-
-    return response;
+          : null,
+      message: json?["message"],
+      statusCode: json?["statusCode"],
+      success: json?["success"],
+    );
   }
 }

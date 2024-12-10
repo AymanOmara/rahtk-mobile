@@ -42,16 +42,15 @@ class AuthRepository implements IAuthRepository {
       ),
       data: TokenModel(),
     );
-    switch (result) {
-      case Success(data: final data):
-        if (data.statusCode == 200) {
-          _userLocal.setAccessToken(data.data?.token ?? "");
-          _userLocal.setRefreshToken(data.data?.refreshToken ?? "");
-        }
-        return Success(data.toEntity(data.data.toEntity()));
-      case Failure(exception: final exception):
-        return Failure(exception);
-    }
+    return result.fold(onSuccess: (data) {
+      if (data.statusCode == 200) {
+        _userLocal.setAccessToken(data.data?.token ?? "");
+        _userLocal.setRefreshToken(data.data?.refreshToken ?? "");
+      }
+      return Success(data.toEntity(data.data.toEntity()));
+    }, onFailure: (exception) {
+      return Failure(exception);
+    });
   }
 
   @override
@@ -116,7 +115,12 @@ class AuthRepository implements IAuthRepository {
   Future<Result<Response<bool>, NetworkException>> registerFcmToken() async {
     if (_userLocal.fcmToken.isEmpty || !_userLocal.login) {
       return Success(
-          Response<bool>(data: true, success: true, statusCode: 200));
+        Response<bool>(
+          data: true,
+          success: true,
+          statusCode: 200,
+        ),
+      );
     }
     var result = await _service.fetchData<bool>(
         RegisterFcmTokenRequest(fcmToken: _userLocal.fcmToken));

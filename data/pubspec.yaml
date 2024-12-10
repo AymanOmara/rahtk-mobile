@@ -13,6 +13,8 @@ dependencies:
   get_storage: ^2.1.1
   dio: ^5.4.1
   jwt_decoder: ^2.0.1
+#  mocktail: ^1.0.4
+  mockito: ^5.4.4
   get_it: ^7.7.0
   domain:
     path: ../domain
@@ -20,6 +22,8 @@ dependencies:
     path: ../common
 
 dev_dependencies:
+  build_runner: ^2.4.11
+
   flutter_test:
     sdk: flutter
   flutter_lints: ^3.0.0

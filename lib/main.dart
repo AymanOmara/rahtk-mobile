@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:di/di.dart';
+import 'package:domain/common/refresh_token_exception_handler.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:rahtk_mobile/core/helper/constants.dart';
+import 'package:rahtk_mobile/core/helper/refresh_token_exception_handler.dart';
 import 'package:rahtk_mobile/features/app/app_cubit.dart';
 import 'package:rahtk_mobile/firebase_options.dart';
 
@@ -23,6 +25,9 @@ import 'features/products/favorites/business_logic/favorites_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  diInjector.registerSingleton<IRefreshTokenExceptionHandler>(
+    RefreshTokenExceptionHandler(),
+  );
   await DI.registerDependencies();
   await initializeDependencies(diInjector);
   await Firebase.initializeApp(

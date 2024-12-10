@@ -1,7 +1,7 @@
 abstract interface class NetworkException implements Exception {
   final String message;
 
- const  NetworkException(
+  const NetworkException(
     this.message,
   );
 }
