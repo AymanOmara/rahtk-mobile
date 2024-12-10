@@ -7,11 +7,12 @@ import 'package:dio/dio.dart';
 import 'package:domain/locale_storage/i_user_local.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 
 Future<void> initializeDataInjector(GetIt injector) async {
   await GetStorage.init();
   injector.registerSingleton(GetStorage());
-  var dio = setUpInterceptors(injector);
+  var dio = _setUpInterceptors(injector);
   injector.registerSingleton(dio);
   injector.registerSingleton<IUserLocal>(UserLocal(injector()));
   injector.registerSingleton<IAPIService>(BaseApi(
@@ -20,7 +21,7 @@ Future<void> initializeDataInjector(GetIt injector) async {
   ));
 }
 
-Dio setUpInterceptors(GetIt injector) {
+Dio _setUpInterceptors(GetIt injector) {
   var dio = Dio();
   injector.registerSingleton(
     HeaderInterceptor(injector()),
@@ -33,6 +34,10 @@ Dio setUpInterceptors(GetIt injector) {
   dio.interceptors.addAll([
     injector<RefreshTokenInterceptor>(),
     injector<HeaderInterceptor>(),
+    PrettyDioLogger(
+      request: true,
+      responseBody: true,
+    )
   ]);
   return dio;
 }

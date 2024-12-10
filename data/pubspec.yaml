@@ -11,9 +11,9 @@ dependencies:
   flutter:
     sdk: flutter
   get_storage: ^2.1.1
-  dio: ^5.4.1
+  dio: ^5.7.0
   jwt_decoder: ^2.0.1
-#  mocktail: ^1.0.4
+  pretty_dio_logger: ^1.4.0
   mockito: ^5.4.4
   get_it: ^7.7.0
   domain:

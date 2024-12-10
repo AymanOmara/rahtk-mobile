@@ -16,6 +16,7 @@ import 'package:mockito/mockito.dart';
 
 import 'api_service_test.mocks.dart';
 
+
 @GenerateMocks([IAPIService, Dio, IUserLocal, IRefreshTokenExceptionHandler])
 void main() {
   group("api service test", () {
