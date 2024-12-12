@@ -12,17 +12,19 @@ import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 Future<void> initializeDataInjector(GetIt injector) async {
   await GetStorage.init();
   injector.registerSingleton(GetStorage());
-  var dio = _setUpInterceptors(injector);
-  injector.registerSingleton(dio);
   injector.registerSingleton<IUserLocal>(UserLocal(injector()));
+  var dio = Dio();
   injector.registerSingleton<IAPIService>(BaseApi(
-    injector(),
+    dio,
     injector(),
   ));
+
+  _setUpInterceptors(injector, dio);
+
+  injector.registerSingleton(dio);
 }
 
-Dio _setUpInterceptors(GetIt injector) {
-  var dio = Dio();
+void _setUpInterceptors(GetIt injector, Dio dio) {
   injector.registerSingleton(
     HeaderInterceptor(injector()),
   );
@@ -39,5 +41,4 @@ Dio _setUpInterceptors(GetIt injector) {
       responseBody: true,
     )
   ]);
-  return dio;
 }
